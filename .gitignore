@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/osx,windows,linux,node
+# Created by https://www.gitignore.io/api/osx,node,linux,windows,visualstudiocode
 
 ### Linux ###
 *~
@@ -119,6 +119,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -145,4 +152,4 @@ $RECYCLE.BIN/
 *.lnk
 
 
-# End of https://www.gitignore.io/api/osx,windows,linux,node
+# End of https://www.gitignore.io/api/osx,node,linux,windows,visualstudiocode

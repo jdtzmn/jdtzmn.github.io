@@ -1,23 +1,27 @@
 {
-    "extends": "standard",
-    "env": {
-      "node": true,
-      "jest": true,
-      "browser": true,
-      "es6": true
-    },
-    "plugins": [
-       "node",
-       "standard",
-       "react",
-       "jsx-a11y",
-       "import",
-       "promise" 
-    ],
-    "rules": {
-      "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "./src/setupTests.js"]}]
-    }
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "typescript-eslint-parser"
+  },
+  "extends": [
+    "plugin:vue/recommended",
+    "typescript",
+    "standard"
+  ],
+  "env": {
+    "node": true,
+    "jest": true,
+    "browser": true,
+    "es6": true
+  },
+  "plugins": [
+      "node",
+      "vue",
+      "standard",
+      "import",
+      "promise" 
+  ],
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "./src/setupTests.js"]}]
   }
+}

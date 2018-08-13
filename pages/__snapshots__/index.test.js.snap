@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Index should match snapshot 1`] = `
+<div class="row">
+  <h1 class="text-heading text-center">Header</h1>
+  <p class="text-body">Body</p>
+</div>
+`;
