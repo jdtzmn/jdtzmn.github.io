@@ -8,6 +8,7 @@
     "test": "jest --watch",
     "build": "nuxt build",
     "start": "nuxt start",
+    "debug": "node --nolazy --inspect ./node_modules/.bin/nuxt",
     "precommit": "lint-staged"
   },
   "lint-staged": {
