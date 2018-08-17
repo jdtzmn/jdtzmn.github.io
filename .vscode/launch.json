@@ -15,15 +15,24 @@
       "request": "launch",
       "name": "Chrome",
       "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack://*": "${webRoot}/*"
+      }
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Chrome Canary",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceRoot}/client",
       "runtimeExecutable": "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
-      "userDataDir": "${workspaceRoot}/.vscode/chrome"
+      "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "webRoot": "${workspaceFolder}",
+      "breakOnLoad": true,
+      "sourceMapPathOverrides": {
+        "webpack://*": "${webRoot}/*"
+      }
     }
   ]
 }
