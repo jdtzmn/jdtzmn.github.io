@@ -11,12 +11,14 @@
   "env": {
     "node": true,
     "jest": true,
+    "cypress/globals": true,
     "browser": true,
     "es6": true
   },
   "plugins": [
       "node",
       "vue",
+      "cypress",
       "standard",
       "import",
       "promise" 
