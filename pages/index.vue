@@ -1,41 +1,29 @@
 <template lang="pug">
-  div.row
-    h1.text-heading.text-center Header
-    p.text-body Body
+  div
+    div.title
+      h1.text-heading.text-center Jacob Daitzman
+      sub.text-heading.text-center jdtzmn@gmail.com
+    div.row
+      p.text-body Body
+      event-list
 </template>
 
 <script lang="ts">
+import EventList from '@/components/EventList/EventList.vue'
+
 import Vue from 'vue'
 export default Vue.extend({
+  components: { EventList }
 })
 </script>
 
-<style>
+<style lang="scss">
+@import '~@/styles/colors';
+@import '~@/styles/font';
+@import '~@/styles/grid';
 
-/* ===== GRID ===== */
-
-.row {
+.title {
   /* display */
-  max-width: 60em;
-  margin: 0 auto;
-}
-
-/* ===== FONT ===== */
-
-.text-heading {
-  /* font */
-  font-family: 'Lora', serif;
-}
-
-.text-body {
-  /* font */
-  font-family: 'Open Sans', serif;
-  font-size: 1.2em;
-  line-height: 1.5;
-}
-
-.text-center {
-  /* font */
-  text-align: center;
+  margin-top: 1em;
 }
 </style>

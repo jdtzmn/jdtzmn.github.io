@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import StylelintPlugin from 'stylelint-webpack-plugin'
+
 module.exports = {
   head: {
     meta: [
@@ -7,5 +10,22 @@ module.exports = {
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lora:700|Open+Sans:400' }
     ]
+  },
+  build: {
+    plugins: [
+      new StylelintPlugin({
+        files: ['**/*.{scss,vue}']
+      })
+    ],
+    extend (config, { isDev, isClient }) {
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }

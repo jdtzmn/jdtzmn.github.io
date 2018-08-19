@@ -1,0 +1,38 @@
+// ======== TEXT HEADING ========
+
+.text-heading {
+  // display
+  margin: 0;
+  
+  // font
+  font-family: 'Lora', serif;
+}
+
+sub.text-heading {
+  // color
+  color: $lighttext;
+  
+  // display
+  display: block;
+}
+
+// ========== TEXT BODY =========
+
+body {
+  // color
+  color: $blacktext;
+
+  // font
+  font-size: 1.2em;
+}
+
+body, .text-body {
+  // font
+  font-family: 'Open Sans', serif;
+  line-height: 1.5;
+}
+
+.text-center {
+  // font
+  text-align: center;
+}
