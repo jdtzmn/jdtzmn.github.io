@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+    - node_modules
+    - ~/.cache
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Unit Tests"
+      script: yarn test:unit
+    - name: "E2E Tests"
+      script: yarn test:e2e
