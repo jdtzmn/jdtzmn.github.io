@@ -1,5 +1,7 @@
 import { shallowMount, mount, config } from '@vue/test-utils'
 import Index from '@/pages/index'
+import TitleBar from '@/components/TitleBar/TitleBar'
+import ScrollingText from '@/components/ScrollingText/ScrollingText'
 import Card from '@/components/Card/Card'
 
 config.logModifiedComponents = false
@@ -7,11 +9,7 @@ config.logModifiedComponents = false
 describe('Index', () => {
   let wrapper
   beforeEach(() => {
-    wrapper = shallowMount(Index, {
-      stubs: {
-        card: '<div class="card"></div>'
-      }
-    })
+    wrapper = shallowMount(Index)
   })
 
   it('should match snapshot', () => {
@@ -26,25 +24,8 @@ describe('Index', () => {
     expect(wrapper.contains('div')).toBeTruthy()
   })
 
-  it('should render title and row divs inside root div', () => {
-    const rootDiv = wrapper.find('div')
-    expect(rootDiv.contains('.title')).toBeTruthy()
-    expect(rootDiv.contains('.row')).toBeTruthy()
-  })
-
-  it('should render h1 element inside title div', () => {
-    expect(wrapper
-      .find('.title')
-      .contains('h1.text-heading.text-center'))
-      .toBeTruthy()
-  })
-
-  it('should render "Jacob Daitzman" inside h1 element', () => {
-    expect(wrapper
-      .find('.title')
-      .find('h1')
-      .text())
-      .toEqual('Jacob Daitzman')
+  it('should render row div inside root div', () => {
+    expect(wrapper.find('div').contains('.row')).toBeTruthy()
   })
 })
 
@@ -52,6 +33,20 @@ describe('mounted Index', () => {
   let wrapper
   beforeEach(() => {
     wrapper = mount(Index)
+  })
+
+  it('should render titlebar component inside root div', () => {
+    expect(wrapper
+      .find('div')
+      .contains(TitleBar))
+      .toBeTruthy()
+  })
+
+  it('should render scrolling-text component inside root div', () => {
+    expect(wrapper
+      .find('div')
+      .contains(ScrollingText))
+      .toBeTruthy()
   })
 
   it('should render 4 card components inside row div', () => {

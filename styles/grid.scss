@@ -4,12 +4,14 @@
   margin: 0 auto;
   padding: 0 1.5em 0;
 
-  @include md {
-    // display
-    display: grid;
+  &:not(.no-flex) {
+    @include md {
+      // display
+      display: grid;
 
-    // grid
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 1em;
+      // grid
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1em;
+    }
   }
 }

@@ -1,8 +1,7 @@
 <template lang="pug">
   div
-    .title
-      h1.text-heading.text-center Jacob Daitzman
-      sub.text-heading.text-center jdtzmn@gmail.com
+    titlebar
+    scrolling-text
     .row
       card
         .card-header Skills
@@ -19,27 +18,33 @@
 </template>
 
 <script lang="ts">
+import TitleBar from '@/components/TitleBar/TitleBar.vue'
+import ScrollingText from '@/components/ScrollingText/ScrollingText.vue'
 import Card from '@/components/Card/Card.vue'
 
 import Vue from 'vue'
 export default Vue.extend({
-  components: { Card }
+  components: { TitleBar, ScrollingText, Card }
 })
 </script>
 
 <style lang="scss">
 @import '~@/styles/global';
+</style>
 
-.title {
-  // display
-  padding: 1em 0;
+<style scoped lang="scss">
+@import '~@/styles/colors';
 
-  // border
-  border-bottom: 2px solid $lightgray;
+.page {
+  margin-top: 115px;
+}
 
-  h1 {
-    // font
-    font-size: 2.3em;
-  }
+.card-header {
+  // color
+  background: $white;
+
+  // position
+  position: sticky;
+  top: 2em;
 }
 </style>

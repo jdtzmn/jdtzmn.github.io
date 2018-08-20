@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TitleBar should match snapshot 1`] = `
+<div data-cy="title" class="title">
+  <h1 class="text-heading text-center">Jacob Daitzman</h1>
+  <sub data-cy="email" class="text-heading text-center">jdtzmn@gmail.com</sub>
+</div>
+`;
