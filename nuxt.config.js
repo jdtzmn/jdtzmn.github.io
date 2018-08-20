@@ -18,8 +18,17 @@ module.exports = {
       })
     ],
     extend (config, { isDev, isClient }) {
+      const { rules } = config.module
+      rules.push({
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      })
+
       if (isDev && isClient) {
-        config.module.rules.push({
+        rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
