@@ -1,13 +1,17 @@
 import { shallowMount, mount, config } from '@vue/test-utils'
 import Index from '@/pages/index'
-import EventList from '@/components/EventList/EventList'
+import Card from '@/components/Card/Card'
 
 config.logModifiedComponents = false
 
 describe('Index', () => {
   let wrapper
   beforeEach(() => {
-    wrapper = shallowMount(Index)
+    wrapper = shallowMount(Index, {
+      stubs: {
+        card: '<div class="card"></div>'
+      }
+    })
   })
 
   it('should match snapshot', () => {
@@ -24,37 +28,23 @@ describe('Index', () => {
 
   it('should render title and row divs inside root div', () => {
     const rootDiv = wrapper.find('div')
-    expect(rootDiv.contains('div.title')).toBeTruthy()
-    expect(rootDiv.contains('div.row')).toBeTruthy()
+    expect(rootDiv.contains('.title')).toBeTruthy()
+    expect(rootDiv.contains('.row')).toBeTruthy()
   })
 
   it('should render h1 element inside title div', () => {
     expect(wrapper
-      .find('div.title')
+      .find('.title')
       .contains('h1.text-heading.text-center'))
       .toBeTruthy()
   })
 
   it('should render "Jacob Daitzman" inside h1 element', () => {
     expect(wrapper
-      .find('div.title')
+      .find('.title')
       .find('h1')
       .text())
       .toEqual('Jacob Daitzman')
-  })
-
-  it('should render p element inside row div', () => {
-    expect(wrapper
-      .find('div.row')
-      .contains('p.text-body'))
-      .toBeTruthy()
-  })
-
-  it('should render "Body" inside p element', () => {
-    expect(wrapper
-      .find('p.text-body')
-      .text())
-      .toEqual('Body')
   })
 })
 
@@ -64,10 +54,18 @@ describe('mounted Index', () => {
     wrapper = mount(Index)
   })
 
-  it('should render event-list component inside row div', () => {
+  it('should render 4 card components inside row div', () => {
     expect(wrapper
-      .find('div.row')
-      .contains(EventList))
-      .toBeTruthy()
+      .find('.row')
+      .findAll(Card))
+      .toHaveLength(4)
+  })
+
+  it('should render card components correctly', () => {
+    const cards = wrapper.findAll(Card).wrappers
+    cards.forEach((card) => {
+      expect(card.contains('.card-header')).toBeTruthy()
+      expect(card.contains('.card-body')).toBeTruthy()
+    })
   })
 })

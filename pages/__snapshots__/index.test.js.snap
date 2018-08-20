@@ -7,8 +7,10 @@ exports[`Index should match snapshot 1`] = `
     <sub class="text-heading text-center">jdtzmn@gmail.com</sub>
   </div>
   <div class="row">
-    <p class="text-body">Body</p>
-    <event-list-stub></event-list-stub>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
   </div>
 </div>
 `;

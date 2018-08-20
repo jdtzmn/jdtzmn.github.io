@@ -1,6 +1,6 @@
 // ======== TEXT HEADING ========
 
-.text-heading {
+%text-heading {
   // display
   margin: 0;
   
@@ -8,12 +8,24 @@
   font-family: 'Lora', serif;
 }
 
+.text-heading {
+  @extend %text-heading;
+
+  // font
+  font-size: 1.5em;
+}
+
 sub.text-heading {
+  @extend %text-heading;
+  
   // color
   color: $lighttext;
   
   // display
   display: block;
+
+  // font
+  font-size: 1.1em;
 }
 
 // ========== TEXT BODY =========
@@ -21,14 +33,11 @@ sub.text-heading {
 body {
   // color
   color: $blacktext;
-
-  // font
-  font-size: 1.2em;
 }
 
 body, .text-body {
   // font
-  font-family: 'Open Sans', serif;
+  font-family: 'Raleway', serif;
   line-height: 1.5;
 }
 

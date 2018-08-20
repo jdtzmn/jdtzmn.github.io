@@ -8,7 +8,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lora:700|Open+Sans:400' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lora:700|Raleway:300' }
     ]
   },
   build: {

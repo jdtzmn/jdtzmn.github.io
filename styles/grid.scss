@@ -1,6 +1,15 @@
 .row {
   // display
-  max-width: 50em;
+  max-width: 70em;
   margin: 0 auto;
   padding: 0 1.5em 0;
+
+  @include md {
+    // display
+    display: grid;
+
+    // grid
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1em;
+  }
 }
