@@ -1,47 +1,119 @@
-// ======== TEXT HEADING ========
+@import './breakpoints';
+@import './colors';
 
-%text-heading {
-  // display
-  margin: 0;
-  
-  // font
-  font-family: 'Lora', serif;
-}
-
-.text-heading {
-  @extend %text-heading;
-
-  // font
-  font-size: 1.5em;
-}
-
-sub.text-heading {
-  @extend %text-heading;
-  
-  // color
-  color: $lighttext;
-  
-  // display
-  display: block;
-
-  // font
-  font-size: 1.1em;
-}
-
-// ========== TEXT BODY =========
-
-body {
-  // color
-  color: $blacktext;
-}
+// ========== BODY TEXT =========
 
 body, .text-body {
+  // color
+  color: $blacktext;
+
   // font
-  font-family: 'Raleway', serif;
-  line-height: 1.5;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+  // A snippet from https://css-tricks.com/snippets/css/system-font-stack/ :
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  @include sm {
+    // font
+    font-size: 18px;
+  }
+
+  @include md {
+    // font
+    font-size: 20px;
+  }
+
+  @include lg {
+    // font
+    font-size: 22px;
+  }
 }
+
+// =========== HEADER ==========
+
+$headers: 6;
+
+%header {
+  // color
+  color: black;
+  color: inherit;
+
+  // display
+  margin: 0;
+
+  // font
+  font-weight: 400;
+}
+
+@mixin header-x-list {
+  @for $i from 1 through $headers {
+    %header#{$i} {
+      @extend %header;
+
+      // font
+      font-size: 1.4em * ($headers - $i + 1) / $headers;
+    }
+
+    .h#{$i} {
+      @extend %header#{$i};
+    }
+  }
+}
+
+@include header-x-list;
+
+@mixin sub-x-list {
+  @for $i from 1 through $headers {
+    sub .h#{$i}, sub.h#{$i} {
+      @extend %header;
+
+      // color
+      color: $lighttext;
+      
+      // display
+      display: block;
+
+      // font
+      font-size: 1.1em * ($headers - $i + 1) / $headers;
+      font-weight: 500;
+    }
+  }
+}
+
+@include sub-x-list;
+
+// ========= FONT STYLES ========
 
 .text-center {
   // font
   text-align: center;
+}
+
+// alternate font
+
+%alternate-font {
+  // font
+  font-family: 'Roboto Slab', serif;
+}
+
+.alternate-font {
+  @extend %alternate-font;
+}
+
+// light-colored text
+
+%light-text {
+  // color
+  color: $lightgray;
+}
+
+.light-text {
+  @extend %light-text;
+}
+
+// light-weighted text
+
+.text-light {
+  font-weight: 300;
 }

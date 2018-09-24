@@ -8,10 +8,13 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lora:700|Raleway:300' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Slab' }
     ]
   },
   build: {
+    watch: [
+      'tsconfig.json'
+    ],
     plugins: [
       new StylelintPlugin({
         files: ['**/*.{scss,vue}']

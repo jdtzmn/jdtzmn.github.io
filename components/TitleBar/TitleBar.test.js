@@ -13,13 +13,34 @@ describe('TitleBar', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('should render title div', () => {
-    expect(wrapper.contains('.title')).toBeTruthy()
+  it('should render header', () => {
+    expect(wrapper.contains('header')).toBeTruthy()
+  })
+
+  it('should render background div inside header', () => {
+    expect(wrapper
+      .find('header')
+      .contains('.background'))
+      .toBeTruthy()
+  })
+
+  it('should render hidden img inside background div', () => {
+    expect(wrapper
+      .find('.background')
+      .contains('img.hidden'))
+      .toBeTruthy()
+  })
+
+  it('should render title div inside header', () => {
+    expect(wrapper
+      .find('header')
+      .contains('.title'))
+      .toBeTruthy()
   })
 
   it('should render h1 element inside title div', () => {
     expect(title
-      .contains('h1.text-heading.text-center'))
+      .contains('h1.h1.text-center'))
       .toBeTruthy()
   })
 
@@ -32,7 +53,7 @@ describe('TitleBar', () => {
 
   it('should render sub element inside title div', () => {
     expect(title
-      .contains('sub.text-heading.text-center'))
+      .contains('sub.h1.text-center'))
       .toBeTruthy()
   })
 
@@ -58,11 +79,6 @@ describe('mounted TitleBar', () => {
   it('should render style prop based on titleStyle data', () => {
     wrapper.setData({ titleStyle: sampleStyle })
     expect(title.attributes().style).toBe(sampleText)
-  })
-
-  it('should render bottom class based on hasBottomBorder data', () => {
-    wrapper.setData({ hasBottomBorder: true })
-    expect(title.attributes().class).toBe('title border')
   })
 
   it('should render style prop based on headerStyle data', () => {

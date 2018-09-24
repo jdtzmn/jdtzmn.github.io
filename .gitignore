@@ -157,3 +157,6 @@ $RECYCLE.BIN/
 # Cypress
 cypress/videos
 cypress/screenshots
+
+# Dist
+dist/

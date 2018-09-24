@@ -1,17 +1,68 @@
-.row {
+@import '~@/styles/breakpoints.scss';
+
+@mixin row($columns: false, $padding: true, $max_width: false) {
   // display
-  max-width: 70em;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 0 1.5em 0;
+  @if $padding != false {
+    padding: 0 25px;
+  }
 
-  &:not(.no-flex) {
-    @include md {
-      // display
-      display: grid;
+  @if $columns {
+    // display
+    display: grid;
 
-      // grid
-      grid-template-columns: repeat(3, 1fr);
-      column-gap: 1em;
+    // grid
+    grid-template-columns: repeat($columns, 1fr);
+    gap: 30px;
+
+  } @else {
+    &:not(.no-flex) {
+      @include md {
+        // display
+        display: grid;
+        max-width: 800px;
+  
+        // grid
+        grid-template-columns: repeat(2, 1fr);
+        gap: 45px;
+      }
+  
+      @include lg {
+        // display
+        max-width: 1100px;
+
+        // grid
+        column-gap: 70px;
+        row-gap: 45px;
+      }
     }
+  }
+
+  // display
+  @if $max-width { // override previously-set max-width if it is passed as a parameter
+    max-width: $max_width;
+  }
+}
+
+.row {
+  @include row();
+}
+
+%center-block {
+  // display
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 25px;
+
+  @include md {
+    // display
+    display: grid;
+    max-width: 800px;
+  }
+
+  @include lg {
+    // display
+    max-width: 1100px;
   }
 }

@@ -1,14 +1,12 @@
 <template lang="pug">
-  .title(
-    v-bind:style='titleStyle',
-    v-bind:class='{ border: hasBottomBorder }'
-    data-cy='title'
-  )
-    h1.text-heading.text-center(v-bind:style='headerStyle') Jacob Daitzman
-    sub.text-heading.text-center(
-      v-bind:style='subStyle'
-      data-cy='email'
-    ) jdtzmn@gmail.com
+  header
+    .background(ref='background')
+      //- hidden images that load higher-res images over time
+      img.hidden(src='~@@/assets/img/title/computer@2x.jpg', @load='changeImages')
+    .title(:style='titleStyle', data-cy='title')
+      h1.h1.text-center.alternate-font(:style='headerStyle') Jacob Daitzman
+      a(href='mailto:jdtzmn@gmail.com')
+        sub.h1.text-center(:style='subStyle', data-cy='email') jdtzmn@gmail.com
 </template>
 
 <script lang="ts">
@@ -18,34 +16,48 @@ export default Vue.component('titlebar', {
     return {
       titleStyle: {},
       headerStyle: {},
-      subStyle: {},
-      hasBottomBorder: false
+      subStyle: {}
     }
   },
   mounted () {
-    window.onscroll = this.handleScroll
+    window.onscroll = this.handleChange
+    window.onresize = this.handleChange
   },
   methods: {
+    changeImages (e: Event) {
+      const background = this.$refs.background as HTMLDivElement
+      const image = e.target as HTMLImageElement
+      const url = image.src
+      background.style.backgroundImage = `url('${url}')`
+    },
     calculateCurrent (config: any, currentY: number, endY: number) {
       const { initial, min } = config
       const slope = (initial - min) / endY
       const output = -slope * currentY + initial
       return Math.min(Math.max(output, min), initial)
     },
-    handleScroll () {
-      const { scrollY } = window
+    handleChange () {
+      const { scrollY, innerWidth } = window
+      if (innerWidth < 768) {
+        this.updateStyles(scrollY)
+      } else {
+        this.titleStyle = this.headerStyle = this.subStyle = {}
+      }
+    },
+    updateStyles (scrollY: number) {
+      const { innerWidth } = window
       const endY = 150
       const height = {
-        initial: 81,
-        min: 30
+        initial: 91,
+        min: 40
       }
       const padding = {
-        initial: 1,
-        min: 0.2
+        initial: 20,
+        min: 5
       }
       const scale = {
         initial: 1,
-        min: 0.6
+        min: innerWidth >= 576 ? 0.6 : 0.65
       }
       const opacity = {
         initial: 1,
@@ -55,10 +67,6 @@ export default Vue.component('titlebar', {
         initial: 0,
         min: -28
       }
-      const margin = {
-        initial: 115,
-        min: 50
-      }
 
       const { calculateCurrent } = this
       const computedHeight = calculateCurrent(height, scrollY, endY)
@@ -66,74 +74,95 @@ export default Vue.component('titlebar', {
       const computedScale = calculateCurrent(scale, scrollY, endY)
       const computedOpacity = calculateCurrent(opacity, scrollY, endY)
       const computedPosition = calculateCurrent(position, scrollY, endY)
-      const computedMargin = calculateCurrent(margin, scrollY, endY)
-
+      const hideSub = scrollY >= endY
       this.titleStyle = {
+        background: 'black',
         height: `${computedHeight}px`,
-        padding: `${computedPadding}em 0`
+        padding: `${computedPadding}px 0`,
+        position: 'fixed',
+        zIndex: 1
       }
       this.headerStyle = {
         transform: `scale(${computedScale})`
       }
       this.subStyle = {
         opacity: computedOpacity,
-        top: `${computedPosition}px`
-      }
-      this.hasBottomBorder = scrollY > endY
-
-      const rootDiv = document.querySelector('#__layout > div')
-      if (rootDiv instanceof HTMLElement) {
-        rootDiv.style.marginTop = `${computedMargin}px`
+        top: `${computedPosition}px`,
+        display: hideSub ? 'none' : 'block'
       }
     }
   }
 })
 </script>
 
-<style lang="scss">
-
-#__layout > div {
-  margin-top: 115px;
-}
-</style>
-
 <style lang="scss" scoped>
 
 @import '~@/styles/colors';
 
-.title {
+header {
   // color
-  background: $white;
+  background: black;
 
   // display
   width: 100%;
-  padding: 1em 0;
+}
 
-  // position
-  position: fixed;
-  top: 0;
+.background {
+  // color
+  background: black;
+  background-image: url('~/assets/img/title/computer.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  // display
+  width: 100%;
+  max-width: 1300px;
+  min-height: 400px;
+  height: 60vw;
+  max-height: 600px;
+  margin: 0 auto;
+  padding-top: 20px;
 
   // other
   z-index: 1;
   overflow: hidden;
+}
 
-  &.border {
-    // border
-    border-bottom: 2px solid $lightgray;
-  }
+.title {
+  // color
+  color: $white;
+
+  // display
+  padding: 20px 0;
+
+  // position
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 
   h1 {
-    // font
-    font-size: 2.3em;
+  // font
+  font-size: 2.3em;
 
-    // transform
-    transform-origin: top center;
+  // transform
+  transform-origin: top center;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   sub {
     // position
     position: relative;
   }
+}
+
+.hidden {
+  // display
+  display: none;
 }
 
 </style>

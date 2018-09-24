@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TitleBar should match snapshot 1`] = `
-<div data-cy="title" class="title">
-  <h1 class="text-heading text-center">Jacob Daitzman</h1>
-  <sub data-cy="email" class="text-heading text-center">jdtzmn@gmail.com</sub>
-</div>
+<header>
+  <div class="background">
+    <img src="~@@/assets/img/title/computer@2x.jpg" class="hidden">
+  </div>
+  <div data-cy="title" class="title">
+    <h1 class="h1 text-center alternate-font">Jacob Daitzman</h1>
+    <a href="mailto:jdtzmn@gmail.com">
+      <sub data-cy="email" class="h1 text-center">jdtzmn@gmail.com</sub>
+    </a>
+  </div>
+</header>
 `;

@@ -12,12 +12,12 @@ describe('About page', () => {
     cy.viewport('iphone-5')
 
     cy.get('[data-cy=title]')
-      .should('have.css', 'height', '81px')
+      .should('have.css', 'height', '91px')
 
     cy.scrollTo(0, 150)
 
     cy.get('[data-cy=title]')
-      .should('have.css', 'height', '29.6px')
+      .should('have.css', 'height', '40px')
   })
 
   it('should hide email on scroll', () => {
@@ -29,6 +29,18 @@ describe('About page', () => {
     cy.scrollTo(0, 150)
 
     cy.get('[data-cy=email]')
-      .should('not.be.visible')
+      .should('have.css', 'opacity', '0')
+  })
+
+  it('should not display email on scroll', () => {
+    cy.viewport('iphone-5')
+
+    cy.get('[data-cy=email]')
+      .should('have.css', 'display', 'block')
+
+    cy.scrollTo(0, 150)
+
+    cy.get('[data-cy=email]')
+      .should('have.css', 'display', 'none')
   })
 })

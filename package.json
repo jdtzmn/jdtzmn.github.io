@@ -14,6 +14,7 @@
     "dev": "nuxt",
     "debug": "node --nolazy --inspect ./node_modules/.bin/nuxt",
     "build": "nuxt build",
+    "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --fix .",
     "stylelint": "stylelint **/*.{scss,vue}",
     "precommit": "lint-staged"
@@ -29,15 +30,21 @@
     ]
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/free-brands-svg-icons": "^5.3.1",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
+    "axios": "^0.18.0",
     "express": "^4.16.3",
     "nuxt-edge": "^2.0.0-25568071.0dff1b8",
     "vue": "^2.5.17"
   },
   "devDependencies": {
+    "@types/node": "^10.9.0",
     "@vue/test-utils": "^1.0.0-beta.21",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "concurrently": "^3.6.1",
     "cross-env": "^5.2.0",
     "cypress": "^3.1.0",
