@@ -14,7 +14,7 @@ describe('About page', () => {
     cy.get('[data-cy=title]')
       .should('have.css', 'height', '91px')
 
-    cy.scrollTo(0, 150)
+    cy.scrollTo(0, 160)
 
     cy.get('[data-cy=title]')
       .should('have.css', 'height', '40px')
@@ -26,7 +26,7 @@ describe('About page', () => {
     cy.get('[data-cy=email]')
       .should('be.visible')
 
-    cy.scrollTo(0, 150)
+    cy.scrollTo(0, 160)
 
     cy.get('[data-cy=email]')
       .should('have.css', 'opacity', '0')
@@ -38,7 +38,7 @@ describe('About page', () => {
     cy.get('[data-cy=email]')
       .should('have.css', 'display', 'block')
 
-    cy.scrollTo(0, 150)
+    cy.scrollTo(0, 160)
 
     cy.get('[data-cy=email]')
       .should('have.css', 'display', 'none')
