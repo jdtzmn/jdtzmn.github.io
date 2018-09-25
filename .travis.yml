@@ -10,10 +10,10 @@ cache:
 jobs:
   include:
     - stage: Tests
-      name: Unit Tests
-      script: yarn test:unit
-    - name: E2E Tests
-      script: yarn test:e2e
+      name: Run All Tests
+      script:
+        - yarn test
+        - yarn lint
     - stage: Deploy
       name: Deploy to GitHub pages
       if: branch = dev
