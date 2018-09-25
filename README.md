@@ -121,6 +121,6 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 [commits-link]: https://github.com/jdtzmn/jdtzmn.github.io/commits/dev
 [style-badge]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
 [style-link]: https://standardjs.com
-[stars-badge]: https://img.shields.io/github/stars/jdtzmn/jdtzmn.githb.io.svg?style=social&label=Stars
+[stars-badge]: https://img.shields.io/github/stars/jdtzmn/jdtzmn.github.io.svg?style=social&label=Stars
 [repo-link]: https://github.com/jdtzmn/jdtzmn.github.io
 [forks-badge]: https://img.shields.io/github/forks/jdtzmn/jdtzmn.github.io.svg?style=social&label=Fork
