@@ -9,7 +9,7 @@
     "test:unit": "jest",
     "test:e2e": "start-server-and-test dev 3000 test:cypress",
     "test:watch": "jest --watch",
-    "test:cypress": "cypress run --record",
+    "test:cypress": "cypress run",
     "cypress": "cypress open",
     "dev": "nuxt",
     "debug": "node --nolazy --inspect ./node_modules/.bin/nuxt",

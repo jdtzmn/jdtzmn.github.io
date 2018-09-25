@@ -20,8 +20,8 @@ jobs:
         only:
         - dev
       install:
-        - npm install
-        - npm run generate
+        - yarn
+        - yarn generate
       script:
         - echo "Deploying to GitHub pages ..."
       deploy:
