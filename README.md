@@ -7,6 +7,7 @@ My portfolio website
 [![License][license-badge]](LICENSE)
 [![Last Commit][last-commit-badge]][commits-link]
 [![JavaScript Style Guide][style-badge]][style-link]
+[![Build Status][travis-badge]][travis-link]
 
 [![Stars][stars-badge]][repo-link]
 [![Forks][forks-badge]][repo-link]
@@ -121,6 +122,8 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 [commits-link]: https://github.com/jdtzmn/jdtzmn.github.io/commits/dev
 [style-badge]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
 [style-link]: https://standardjs.com
+[travis-badge]: https://travis-ci.com/jdtzmn/jdtzmn.github.io.svg?branch=dev
+[travis-link]: https://travis-ci.com/jdtzmn/jdtzmn.github.io
 [stars-badge]: https://img.shields.io/github/stars/jdtzmn/jdtzmn.github.io.svg?style=social&label=Stars
 [repo-link]: https://github.com/jdtzmn/jdtzmn.github.io
 [forks-badge]: https://img.shields.io/github/forks/jdtzmn/jdtzmn.github.io.svg?style=social&label=Fork
