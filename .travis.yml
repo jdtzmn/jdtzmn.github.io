@@ -16,6 +16,7 @@ jobs:
       script: yarn test:e2e
     - stage: Deploy
       name: Deploy to GitHub pages
+      if: branch = dev
       branches:
         only:
         - dev
