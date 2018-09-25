@@ -8,18 +8,30 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lora:700|Raleway:300' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Slab' }
     ]
   },
   build: {
+    watch: [
+      'tsconfig.json'
+    ],
     plugins: [
       new StylelintPlugin({
         files: ['**/*.{scss,vue}']
       })
     ],
     extend (config, { isDev, isClient }) {
+      const { rules } = config.module
+      rules.push({
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      })
+
       if (isDev && isClient) {
-        config.module.rules.push({
+        rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',

@@ -2,15 +2,219 @@
 
 exports[`Index should match snapshot 1`] = `
 <div>
-  <div class="title">
-    <h1 class="text-heading text-center">Jacob Daitzman</h1>
-    <sub class="text-heading text-center">jdtzmn@gmail.com</sub>
+  <titlebar-stub></titlebar-stub>
+  <div class="content">
+    <div class="aboutme">
+      <div class="row no-flex">A high school student with a passion for programming</div>
+    </div>
+    <segment-stub>
+      <div class="segment-header">About</div>
+      <div class="segment-content h2 text-light">Jacob is an experienced full-stack web app developer. He started web development in second grade when he was nine years old. In fifth grade, he stayed up for three days straight and started learning JavaScript entirely off of StackOverflow questions.
+        Without any prior programming experience, he had completed his first website within a week. Since then, Jacob has worked on numerous personal and professional projects. Even before his first AP computer science course, Jacob had already built
+        twelve web apps. He has competed on two competitive robotics teams, and is currently taking a second computer science class in functional programming and chip design. He is constantly working on one app or another, and is always learning about
+        new technologies to improve his apps. Jacob is a very enthusiastic and focused individual who thrives working independently or on a team.</div>
+    </segment-stub>
+    <segment-stub class="slanted blue light-text">
+      <div class="segment-header">Projects</div>
+      <div class="segment-content">
+        <div class="row project-cards">
+          <card-stub type="raised">
+            <div class="card-header project-header">
+              <div>ChRIS Store UI</div>
+              <a href="https://github.com/FNNDSC/ChRIS_store_ui" class="project-link">
+                <font-awesome-icon-stub icon="fab,github"></font-awesome-icon-stub>
+              </a>
+            </div>
+            <img src="/projects/ChRIS_store_ui.png" width="100%" class="card-image">
+            <div class="card-body">ChRIS is an open source framework that utilizes cloud technologies to democratize medical analytics application development. The ChRIS Store is a store for all the ChRIS plugins and a place for developers to publish their own.</div>
+          </card-stub>
+          <card-stub type="raised">
+            <div class="card-header project-header">
+              <div>SpotSync</div>
+              <a href="https://github.com/jdtzmn/spotsync/tree/v3.0.0" class="project-link">
+                <font-awesome-icon-stub icon="fab,github"></font-awesome-icon-stub>
+              </a>
+            </div>
+            <img src="/projects/SpotSync.png" width="100%" class="card-image">
+            <div class="card-body">SpotSync is a web app powered by the Spotify Web Playback SDK that automatically syncs two Spotify accounts to play music at the same time. When the "leader" changes songs, all the listeners' songs change magically to the next song.</div>
+          </card-stub>
+          <card-stub type="raised">
+            <div class="card-header project-header">
+              <div>Twitch Dashboard</div>
+              <a href="https://github.com/jdtzmn/Twitch-Dashboard/tree/electron" class="project-link">
+                <font-awesome-icon-stub icon="fab,github"></font-awesome-icon-stub>
+              </a>
+            </div>
+            <img src="/projects/TwitchDashboard.png" width="100%" class="card-image">
+            <div class="card-body">Twitch Dashboard is an electron app that gives a preview of what the viewers see in a window that can be viewed while playing games. It also sends Twitch chat as desktop notifications to the top right corner of the screen.</div>
+          </card-stub>
+        </div>
+      </div>
+      <a href="https://github.com/jdtzmn?tab=repositories" class="see-more">Show me more</a>
+    </segment-stub>
+    <segment-stub>
+      <div class="segment-header">More Info</div>
+      <div class="segment-content">
+        <div class="row cards">
+          <card-stub type="flat">
+            <div class="card-header">Experience</div>
+            <div class="card-body experiences">
+              <div class="experience">
+                <div>Arcus – Web App</div>
+                <div>2015 – 2018</div>
+              </div>
+              <div class="experience">
+                <div>SpotSync</div>
+                <div>2016-2017</div>
+              </div>
+              <div class="experience">
+                <div>Twitch Dashbaord</div>
+                <div>2017</div>
+              </div>
+              <div class="experience">
+                <div>Gators – Free Texting Framework</div>
+                <div>2017</div>
+              </div>
+              <div class="experience">
+                <div>Red Hat Internship</div>
+                <div>Summer 2018</div>
+              </div>
+            </div>
+          </card-stub>
+          <card-stub type="flat">
+            <div class="card-header">Skills</div>
+            <div class="card-body skills">
+              <a href="https://vuejs.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,vuejs"></font-awesome-icon-stub>
+                <div>Vue</div>
+              </a>
+              <a href="https://swift.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,apple"></font-awesome-icon-stub>
+                <div>Swift</div>
+              </a>
+              <a href="https://codepen.io" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,codepen"></font-awesome-icon-stub>
+                <div>Codepen</div>
+              </a>
+              <a href="https://css3.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,css3"></font-awesome-icon-stub>
+                <div>CSS3</div>
+              </a>
+              <a href="https://sketchapp.com" class="skill-tag">
+                <!---->
+                <div>Sketch</div>
+              </a>
+              <a href="https://docker.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,docker"></font-awesome-icon-stub>
+                <div>Docker</div>
+              </a>
+              <a href="https://redis.io" class="skill-tag">
+                <!---->
+                <div>Redis</div>
+              </a>
+              <a href="https://fontawesome.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,font-awesome"></font-awesome-icon-stub>
+                <div>Font Awesome</div>
+              </a>
+              <a href="https://github.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,github-square"></font-awesome-icon-stub>
+                <div>Github</div>
+              </a>
+              <a href="https://html5.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,html5"></font-awesome-icon-stub>
+                <div>HTML5</div>
+              </a>
+              <a href="https://java.oracle.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,java"></font-awesome-icon-stub>
+                <div>Java</div>
+              </a>
+              <a href="http://www.passportjs.org" class="skill-tag">
+                <!---->
+                <div>Passport</div>
+              </a>
+              <a href="https://expressjs.com" class="skill-tag">
+                <!---->
+                <div>Express</div>
+              </a>
+              <a href="https://socket.io" class="skill-tag">
+                <!---->
+                <div>Socket.IO</div>
+              </a>
+              <a href="https://reactjs.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,react"></font-awesome-icon-stub>
+                <div>React</div>
+              </a>
+              <a href="https://javascript.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,js-square"></font-awesome-icon-stub>
+                <div>JavaScript</div>
+              </a>
+              <a href="https://linux.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,linux"></font-awesome-icon-stub>
+                <div>Linux</div>
+              </a>
+              <a href="https://heroku.com" class="skill-tag">
+                <!---->
+                <div>Heroku</div>
+              </a>
+              <a href="https://nodejs.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,node"></font-awesome-icon-stub>
+                <div>NodeJS</div>
+              </a>
+              <a href="https://npmjs.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,npm"></font-awesome-icon-stub>
+                <div>npm</div>
+              </a>
+              <a href="https://opensource.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,osi"></font-awesome-icon-stub>
+                <div>Open Source</div>
+              </a>
+              <a href="https://python.org" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,python"></font-awesome-icon-stub>
+                <div>Python</div>
+              </a>
+              <a href="https://sass-lang.com" class="skill-tag">
+                <font-awesome-icon-stub icon="fab,sass"></font-awesome-icon-stub>
+                <div>SCSS</div>
+              </a>
+            </div>
+          </card-stub>
+          <card-stub type="flat">
+            <div class="card-header">Languages</div>
+            <div class="card-body">
+              <div class="language">
+                <div>HTML &amp; CSS</div>
+                <div>2009</div>
+              </div>
+              <div class="language">
+                <div>JavaScript</div>
+                <div>2011</div>
+              </div>
+              <div class="language">
+                <div>Java</div>
+                <div>2017</div>
+              </div>
+              <div class="language">
+                <div>Swift</div>
+                <div>2018</div>
+              </div>
+              <div class="language">
+                <div>Python</div>
+                <div>2018</div>
+              </div>
+              <div class="language">
+                <div>Objective-C</div>
+                <div>2018</div>
+              </div>
+              <div class="language">
+                <div>Racket</div>
+                <div>2018</div>
+              </div>
+            </div>
+          </card-stub>
+        </div>
+      </div>
+    </segment-stub>
   </div>
-  <div class="row">
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-  </div>
+  <footer-links-stub></footer-links-stub>
 </div>
 `;

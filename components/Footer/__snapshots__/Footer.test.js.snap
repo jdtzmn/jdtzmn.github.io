@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should match snapshot 1`] = `
+<div class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <div class="footer-header">Browse</div>
+      <div class="footer-link">
+        <a href="/">Home</a>
+      </div>
+      <div class="footer-link">
+        <a href="https://github.com/jdtzmn?tab=repositories">Projects</a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <div class="footer-header">Social</div>
+      <div class="footer-link">
+        <a href="/">Website</a>
+      </div>
+      <div class="footer-link">
+        <a href="https://github.com/jdtzmn">GitHub</a>
+      </div>
+      <div class="footer-link">
+        <a href="https://codepen.io/jdtzmn">Codepen</a>
+      </div>
+    </div>
+    <div class="copyright">© 2018 Jacob Daitzman. All rights reserved.</div>
+  </div>
+</div>
+`;
