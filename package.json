@@ -15,8 +15,9 @@
     "debug": "node --nolazy --inspect ./node_modules/.bin/nuxt",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --fix .",
-    "stylelint": "stylelint **/*.{scss,vue}",
+    "lint": "concurrently \"npm:lint:*\"",
+    "lint:js": "eslint --ext .js,.vue --fix .",
+    "lint:css": "stylelint **/*.{scss,vue}",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -33,7 +34,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-brands-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
-    "express": "^4.16.3",
     "nuxt-edge": "^2.0.0-25568071.0dff1b8",
     "vue": "^2.5.17"
   },
