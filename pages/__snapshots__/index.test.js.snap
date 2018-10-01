@@ -92,6 +92,10 @@ exports[`Index should match snapshot 1`] = `
                 <font-awesome-icon-stub icon="fab,apple"></font-awesome-icon-stub>
                 <div>Swift</div>
               </a>
+              <a href="https://electronjs.org/" class="skill-tag">
+                <!---->
+                <div>Electron</div>
+              </a>
               <a href="https://codepen.io" class="skill-tag">
                 <font-awesome-icon-stub icon="fab,codepen"></font-awesome-icon-stub>
                 <div>Codepen</div>
@@ -116,6 +120,10 @@ exports[`Index should match snapshot 1`] = `
                 <font-awesome-icon-stub icon="fab,font-awesome"></font-awesome-icon-stub>
                 <div>Font Awesome</div>
               </a>
+              <a href="https://cordova.apache.org" class="skill-tag">
+                <!---->
+                <div>Cordova</div>
+              </a>
               <a href="https://github.com" class="skill-tag">
                 <font-awesome-icon-stub icon="fab,github-square"></font-awesome-icon-stub>
                 <div>Github</div>
@@ -138,7 +146,7 @@ exports[`Index should match snapshot 1`] = `
               </a>
               <a href="https://socket.io" class="skill-tag">
                 <!---->
-                <div>Socket.IO</div>
+                <div>socket.io</div>
               </a>
               <a href="https://reactjs.org" class="skill-tag">
                 <font-awesome-icon-stub icon="fab,react"></font-awesome-icon-stub>
@@ -159,6 +167,14 @@ exports[`Index should match snapshot 1`] = `
               <a href="https://nodejs.org" class="skill-tag">
                 <font-awesome-icon-stub icon="fab,node"></font-awesome-icon-stub>
                 <div>NodeJS</div>
+              </a>
+              <a href="https://webpack.js.org" class="skill-tag">
+                <!---->
+                <div>webpack</div>
+              </a>
+              <a href="https://typescriptlang.org" class="skill-tag">
+                <!---->
+                <div>TypeScript</div>
               </a>
               <a href="https://npmjs.com" class="skill-tag">
                 <font-awesome-icon-stub icon="fab,npm"></font-awesome-icon-stub>
