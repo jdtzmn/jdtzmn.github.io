@@ -152,6 +152,10 @@ export default Vue.extend({
           link: 'https://swift.org'
         },
         {
+          name: 'Electron',
+          link: 'https://electronjs.org/'
+        },
+        {
           name: 'Codepen',
           icon: 'codepen',
           link: 'https://codepen.io'
@@ -180,6 +184,10 @@ export default Vue.extend({
           link: 'https://fontawesome.com'
         },
         {
+          name: 'Cordova',
+          link: 'https://cordova.apache.org'
+        },
+        {
           name: 'Github',
           icon: 'github-square',
           link: 'https://github.com'
@@ -203,7 +211,7 @@ export default Vue.extend({
           link: 'https://expressjs.com'
         },
         {
-          name: 'Socket.IO',
+          name: 'socket.io',
           link: 'https://socket.io'
         },
         {
@@ -229,6 +237,14 @@ export default Vue.extend({
           name: 'NodeJS',
           icon: 'node',
           link: 'https://nodejs.org'
+        },
+        {
+          name: 'webpack',
+          link: 'https://webpack.js.org'
+        },
+        {
+          name: 'TypeScript',
+          link: 'https://typescriptlang.org'
         },
         {
           name: 'npm',
