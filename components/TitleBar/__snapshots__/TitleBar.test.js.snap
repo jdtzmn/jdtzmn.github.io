@@ -2,14 +2,9 @@
 
 exports[`TitleBar should match snapshot 1`] = `
 <header>
-  <div class="background">
-    <img src="~@@/assets/img/title/computer@2x.jpg" class="hidden">
-  </div>
+  <div class="background"><img src="~@@/assets/img/title/computer@2x.jpg" class="hidden"></div>
   <div data-cy="title" class="title">
-    <h1 class="h1 text-center alternate-font">Jacob Daitzman</h1>
-    <a href="mailto:jdtzmn@gmail.com">
-      <sub data-cy="email" class="h1 text-center">jdtzmn@gmail.com</sub>
-    </a>
+    <h1 class="h1 text-center alternate-font">Jacob Daitzman</h1><a href="mailto:jdtzmn@gmail.com"><sub data-cy="email" class="h1 text-center">jdtzmn@gmail.com</sub></a>
   </div>
 </header>
 `;

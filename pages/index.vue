@@ -5,8 +5,10 @@
       .aboutme
         .row.no-flex {{ phrase }}
       segment
+        img.portrait(src='@@/assets/img/about/me.jpg')
         .segment-header About
-        .segment-content.h2.text-light {{ about }}
+        .segment-content
+          .h2.text-light {{ about }}
       segment.slanted.blue.light-text
         .segment-header Projects
         .segment-content
@@ -307,6 +309,24 @@ export default Vue.extend({
   font-size: 2em;
   font-weight: 300;
   text-align: center;
+}
+
+.portrait {
+  // display
+  display: block;
+  width: 60%;
+  margin: 0 auto 40px;
+
+  // border
+  border-radius: 50%;
+
+  @include sm {
+    width: 40%;
+  }
+
+  @include md {
+    width: 30%;
+  }
 }
 
 .project-cards {
