@@ -14,6 +14,10 @@ exports[`Footer should match snapshot 1`] = `
       <div class="footer-link"><a href="https://github.com/jdtzmn">GitHub</a></div>
       <div class="footer-link"><a href="https://codepen.io/jdtzmn">Codepen</a></div>
     </div>
+    <div class="footer-section">
+      <div class="footer-header">Blog</div>
+      <div class="footer-link"><a href="http://daily.jacob.daitzman.com">100 Days of Coding Problems</a></div>
+    </div>
     <div class="copyright">© 2018 Jacob Daitzman. All rights reserved.</div>
   </div>
 </div>

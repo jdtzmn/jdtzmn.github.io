@@ -26,7 +26,7 @@ describe('Footer', () => {
     expect(wrapper
       .find('.footer-content')
       .findAll('.footer-section'))
-      .toHaveLength(2)
+      .toHaveLength(3)
   })
 
   it('should render every footer-section with a footer-header div', () => {

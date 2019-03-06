@@ -28,6 +28,12 @@ export default Vue.component('footer-links', {
             { name: 'GitHub', href: 'https://github.com/jdtzmn' },
             { name: 'Codepen', href: 'https://codepen.io/jdtzmn' }
           ]
+        },
+        {
+          name: 'Blog',
+          links: [
+            { name: '100 Days of Coding Problems', href: 'http://daily.jacob.daitzman.com' }
+          ]
         }
       ]
     }
