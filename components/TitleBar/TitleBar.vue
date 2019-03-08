@@ -110,7 +110,7 @@ header {
 .background {
   // color
   background: black;
-  background-image: url('~/assets/img/title/computer.jpg');
+  background-image: url('~@@/assets/img/title/computer.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
