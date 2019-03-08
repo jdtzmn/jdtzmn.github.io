@@ -24,6 +24,7 @@ jobs:
         - yarn
         - yarn generate
       script:
+        - yarn test
         - echo "Deploying to GitHub pages ..."
       deploy:
         provider: pages

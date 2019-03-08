@@ -6734,6 +6734,12 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+nuxt-cname-module@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/nuxt-cname-module/-/nuxt-cname-module-1.1.1.tgz#05715c373670d944be4d7aa73f3dfbc31e7e2814"
+  dependencies:
+    debug "^3.1.0"
+
 nuxt-edge@^2.0.0-25568071.0dff1b8:
   version "2.0.0-25638738.d69b4b8"
   resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.0.0-25638738.d69b4b8.tgz#e415fb1f109550b378afa56442c0236ff33b7312"
