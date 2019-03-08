@@ -13,6 +13,12 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Slab' }
     ]
   },
+  modules: [
+    ['nuxt-cname-module']
+  ],
+  env: {
+    generateCNAME: false
+  },
   build: {
     watch: [
       'tsconfig.json'
