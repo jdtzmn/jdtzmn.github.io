@@ -25,7 +25,7 @@ export default Vue.component('footer-links', {
           name: 'Social',
           links: [
             { name: 'Website', href: '/' },
-            { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jacob-daitzman-a78a26180/' },
+            { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jdtzmn/' },
             { name: 'GitHub', href: 'https://github.com/jdtzmn' },
             { name: 'Codepen', href: 'https://codepen.io/jdtzmn' }
           ]
@@ -33,7 +33,6 @@ export default Vue.component('footer-links', {
         {
           name: 'Blog',
           links: [
-            { name: '100 Days of Coding Problems', href: 'http://daily.jacob.daitzman.com' },
             { name: 'Portfolio', href: 'http://daily.jacob.daitzman.com/portfolio' }
           ]
         }
