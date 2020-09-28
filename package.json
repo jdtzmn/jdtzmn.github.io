@@ -7,7 +7,8 @@
   "scripts": {
     "start": "next",
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "export": "next expoort -o build"
   },
   "dependencies": {
     "next": "^9.5.3",
