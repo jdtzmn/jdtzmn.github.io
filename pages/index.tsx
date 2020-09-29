@@ -1,6 +1,11 @@
+import { GetStaticPropsContext } from 'next'
 import styled from 'styled-components'
+import { Document } from '@contentful/rich-text-types'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import PreviewBanner, { PreviewProps } from 'components/PreviewBanner'
 import { VerticalAlign, Container, Title, Subtitle } from 'components/styled'
 import BoxArtwork from 'components/homepage/BoxArtwork'
+import Contentful from 'src/Contentful'
 
 const ResponsiveVerticalAlign = styled(VerticalAlign)`
   @media (min-width: 768px) {
@@ -35,30 +40,47 @@ const ColoredSubtitle = styled(Subtitle)`
   color: #91cdf8;
 `
 
-export default function Index() {
+interface HomepageData {
+  callToAction: string
+  blurb: Document
+}
+
+interface IndexProps extends PreviewProps {
+  homepageData: HomepageData
+}
+
+export default function Index({ preview, homepageData }: IndexProps) {
   return (
     <ResponsiveVerticalAlign>
       <FlexContainer>
         <Introduction>
           <TitleWithoutPadding>👋 &nbsp;i’m jacob</TitleWithoutPadding>
-          <ColoredSubtitle>
-            I like making apps that improve lives
-          </ColoredSubtitle>
-          <p>
-            I’m a primarily self-taught software engineer who started
-            programming in second grade.
-            <br />
-            <br />
-            I’ve worked on over 30 personal and professional projects including
-            web-based developer dashboards, native mobile applications, desktop
-            applications, sound-based data transmission libraries, cryptographic
-            protocols, and cemetery websites.
-          </p>
+          <ColoredSubtitle>{homepageData.callToAction}</ColoredSubtitle>
+          {documentToReactComponents(homepageData.blurb)}
         </Introduction>
         <Artwork>
           <BoxArtwork />
         </Artwork>
       </FlexContainer>
+      <PreviewBanner isPreview={preview} />
     </ResponsiveVerticalAlign>
   )
+}
+
+export async function getStaticProps({ preview }: GetStaticPropsContext) {
+  let homepageData: HomepageData = null
+  try {
+    const homepageEntries = await Contentful.getEntries('homepage', preview)
+    homepageData = homepageEntries.items[0].fields as HomepageData
+  } catch (err) {
+    console.error(err)
+  }
+
+  return {
+    props: {
+      preview: preview || null,
+      homepageData,
+    },
+    revalidate: 60,
+  }
 }
