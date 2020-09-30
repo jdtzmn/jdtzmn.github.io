@@ -15,6 +15,10 @@ const GlobalStyles = createGlobalStyle`
       theme.colors.background}, #060929);
     color: ${({ theme }) => theme.colors.text};
   }
+
+  .ReactCollapse--collapse {
+    transition: height 400ms;
+  }
 `
 
 export default GlobalStyles

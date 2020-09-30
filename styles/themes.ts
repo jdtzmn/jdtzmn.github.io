@@ -3,6 +3,7 @@
 export const defaultTheme = {
   colors: {
     white: '#FFFFFF',
+    black: '#000000',
     surface: '#F7F7F7',
     gray: '#BCBFCC',
     text: '#C1C1C1',

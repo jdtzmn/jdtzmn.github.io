@@ -15,6 +15,8 @@ const ResponsiveVerticalAlign = styled(VerticalAlign)`
 `
 
 const FlexContainer = styled(Container)`
+  padding-top: 0;
+
   @media screen and (min-width: 768px) {
     display: flex;
   }

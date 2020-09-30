@@ -1,8 +1,9 @@
-import { PropsWithChildren } from 'react'
+import { ComponentPropsWithRef } from 'react'
 import styled from 'styled-components'
 
 // styled buttons
 const DefaultButton = styled.button`
+  display: block;
   color: ${({ theme }) => theme.colors.primary};
   background: transparent;
   padding: 0.75em 1.5em;
@@ -22,6 +23,13 @@ const SecondaryButton = styled(DefaultButton)`
     inset 0 0 8px ${({ theme }) => theme.colors.secondary};
 `
 
+const GrayButton = styled(DefaultButton)`
+  color: ${({ theme }) => theme.colors.gray};
+  border-color: ${({ theme }) => theme.colors.gray};
+  box-shadow: 0 1px 8px ${({ theme }) => theme.colors.gray},
+    inset 0 0 8px ${({ theme }) => theme.colors.gray};
+`
+
 const TextButton = styled(DefaultButton)`
   color: ${({ theme }) => theme.colors.surface};
   border-color: transparent;
@@ -30,22 +38,19 @@ const TextButton = styled(DefaultButton)`
 
 // button component
 
-type ButtonType = 'primary' | 'secondary' | 'text'
+type ButtonType = 'primary' | 'secondary' | 'gray' | 'text'
 
-interface ButtonProps {
-  className?: string
+interface ButtonProps extends ComponentPropsWithRef<'button'> {
   kind?: ButtonType
   as?: never
 }
 
-export default function Button({
-  kind,
-  children,
-  ...props
-}: PropsWithChildren<ButtonProps>) {
+export default function Button({ kind, children, ...props }: ButtonProps) {
   switch (kind) {
     case 'secondary':
       return <SecondaryButton {...props}>{children}</SecondaryButton>
+    case 'gray':
+      return <GrayButton {...props}>{children}</GrayButton>
     case 'text':
       return <TextButton {...props}>{children}</TextButton>
     case 'primary':
