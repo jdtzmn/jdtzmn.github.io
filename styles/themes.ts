@@ -2,7 +2,7 @@
 
 export const breakpoints = {
   mobile: 576, // px
-  tablet: 768, // px
+  tablet: 780, // px
 }
 
 // Themes

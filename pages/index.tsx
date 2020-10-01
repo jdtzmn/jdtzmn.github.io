@@ -96,7 +96,7 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
           </FlexContainer>
         </ResponsiveVerticalAlign>
       </AboveFoldGradient>
-      <Showcase items={showcaseData} />
+      <Showcase items={showcaseData} animationDelay={2000} />
     </>
   )
 }
