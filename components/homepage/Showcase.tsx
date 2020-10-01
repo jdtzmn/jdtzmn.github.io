@@ -4,7 +4,12 @@ import Fade from 'react-reveal/Fade'
 import { File } from 'src/Contentful'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { ImagePreview, VerticalAlign, Subtitle } from 'components/styled'
+import {
+  Container,
+  ImagePreview,
+  VerticalAlign,
+  Subtitle,
+} from 'components/styled'
 import useResponsive from 'src/hooks/useResponsive'
 
 export interface ShowcaseData {
@@ -44,6 +49,14 @@ const Preview = styled(ImagePreview)`
   max-height: 800px;
   width: auto;
   margin: 0 auto;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+    margin: ${({ styleImage }) => (styleImage ? '64px' : '')} auto;
+  }
+`
+
+const Hr = styled.hr`
+  margin-top: 64px;
 `
 
 /**
@@ -53,11 +66,38 @@ const previewRevealDelay = 600 // ms
 
 interface ShowcaseItemProps {
   item: ShowcaseData
-  index: number
-  animationDelay: number
+  /* eslint-disable react/no-unused-prop-types */
+  index?: number
+  animationDelay?: number
+  /* eslint-enable react/no-unused-prop-types */
 }
 
-function ShowcaseItem({ item, index, animationDelay }: ShowcaseItemProps) {
+function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
+  const imageFile = item.image.fields.file
+
+  return (
+    <Container>
+      <Fade bottom distance="48px" duration={500}>
+        <div>
+          <Subtitle>{item.name}</Subtitle>
+          <Preview
+            styleImage={item.roundCorners}
+            src={imageFile.url}
+            alt={imageFile.title}
+          />
+          {documentToReactComponents(item.summary)}
+        </div>
+      </Fade>
+      <Hr />
+    </Container>
+  )
+}
+
+function ShowcaseDesktopItem({
+  item,
+  index,
+  animationDelay,
+}: ShowcaseItemProps) {
   const [infoRevealed, setInfoRevealed] = useState(false)
   const imageFile = item.image.fields.file
   const isOddRow = index % 2 === 0
@@ -91,7 +131,7 @@ function ShowcaseItem({ item, index, animationDelay }: ShowcaseItemProps) {
         left={!isOddRow}
         delay={previewRevealDelay}
         distance="10%"
-        duration={500}
+        duration={800}
         when={infoRevealed}
       >
         <Preview
@@ -120,19 +160,25 @@ interface ShowcaseProps {
 }
 
 export default function Showcase({ items, animationDelay = 0 }: ShowcaseProps) {
-  const { isTablet } = useResponsive()
+  const { isDesktop } = useResponsive()
 
   return (
-    <div>
-      {!isTablet &&
+    <div style={{ overflowY: 'hidden' }}>
+      {!isDesktop &&
         items
           .sort(byOrder)
           .map((item, index) => (
-            <ShowcaseItem
+            <ShowcaseTabletItem item={item} key={item.name + '-tablet'} />
+          ))}
+      {isDesktop &&
+        items
+          .sort(byOrder)
+          .map((item, index) => (
+            <ShowcaseDesktopItem
               item={item}
               index={index}
               animationDelay={animationDelay}
-              key={item.name}
+              key={item.name + '-desktop'}
             />
           ))}
     </div>

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { transparentize } from 'polished'
 
 const GlobalStyles = createGlobalStyle`
   html, body {
@@ -13,8 +14,13 @@ const GlobalStyles = createGlobalStyle`
     font-size: min(max(1.1vw, 16px), 22px);
     font-weight: 300;
     line-height: 1.5;
-    background: #060929;
+    background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
+  }
+
+  hr {
+    border-style: solid;
+    border-color: ${({ theme }) => transparentize(0.9, theme.colors.text)};
   }
 
   .ReactCollapse--collapse {

@@ -1,5 +1,6 @@
 import { ReactElement, useState } from 'react'
 import styled from 'styled-components'
+import { lighten } from 'polished'
 import Link from 'next/link'
 import { IconContext } from 'react-icons'
 import {
@@ -51,7 +52,8 @@ const MobileNavbarContainer = styled(Container)<MobileNavbarContainerProps>`
   display: flex;
   justify-content: flex-end;
   padding: 24px 16px 24px 32px;
-  ${({ isOpened }) => isOpened && 'background: #060929;'}
+  ${({ isOpened, theme }) =>
+    isOpened && `background: ${lighten(0.04, theme.colors.background)};`}
   transition: background 400ms;
   transition-delay: 100ms;
 
@@ -66,7 +68,8 @@ const LinkButton = styled(Button)`
   padding-left: 0;
   margin-left: 0;
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.mobile + 1}px) {
     margin-left: 0.75em;
 
     &:first-child {
@@ -80,7 +83,7 @@ const AlignRight = styled.div`
 `
 
 const ResumeButton = styled(Button)`
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}px) {
     margin-top: 12px;
   }
 `

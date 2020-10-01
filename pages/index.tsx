@@ -1,5 +1,6 @@
 import { GetStaticPropsContext } from 'next'
 import styled from 'styled-components'
+import { lighten } from 'polished'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
@@ -12,13 +13,13 @@ import Contentful from 'src/Contentful'
 
 const AboveFoldGradient = styled.div`
   background: linear-gradient(
-    ${({ theme }) => theme.colors.background},
-    #060929
+    ${({ theme }) => lighten(0.025, theme.colors.background)},
+    ${({ theme }) => theme.colors.background}
   );
 `
 
 const ResponsiveVerticalAlign = styled(VerticalAlign)`
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     min-height: calc(80vh - 152px); /* The height of the Navbar */
   }
 `
@@ -26,7 +27,7 @@ const ResponsiveVerticalAlign = styled(VerticalAlign)`
 const FlexContainer = styled(Container)`
   padding-top: 0;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     display: flex;
   }
 `
@@ -34,7 +35,7 @@ const FlexContainer = styled(Container)`
 const Introduction = styled.div`
   flex: 3;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     padding-right: 96px;
   }
 `
