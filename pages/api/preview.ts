@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-function determineRedirectURL(contentType: string, slug: string) {
+function determineRedirectURL(
+  contentType: string,
+  slug: string
+): string | undefined {
   switch (contentType) {
     case 'homepage':
       return '/'
@@ -21,16 +24,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (invalidType) console.error('Invalid content type')
     if (invalidSlug) console.error('Invalid slug')
 
+    return res.status(401).end()
+  }
+
+  // determine redirect URL
+  const redirectURL = determineRedirectURL(
+    contentType as string,
+    slug as string
+  )
+
+  // guard invalid redirect
+  if (!redirectURL) {
     return res.status(400).end()
   }
 
   // enable Preview Mode by setting the cookies
   res.setPreviewData({})
-
-  const redirectURL = determineRedirectURL(
-    contentType as string,
-    slug as string
-  )
 
   // redirect to the slug
   res.redirect(redirectURL)
