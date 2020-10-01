@@ -1,3 +1,10 @@
+// Breakpoints
+
+export const breakpoints = {
+  mobile: 576, // px
+  tablet: 768, // px
+}
+
 // Themes
 
 export const defaultTheme = {
@@ -11,6 +18,7 @@ export const defaultTheme = {
     primary: '#4AAFF7',
     secondary: '#EE5185',
   },
+  breakpoints,
 }
 
 // Type Definitions

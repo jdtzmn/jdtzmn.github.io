@@ -9,3 +9,6 @@ export { default as Subtitle } from './Subtitle'
 
 // control
 export { default as Button } from './Button'
+
+// misc
+export { default as ImagePreview } from './ImagePreview'

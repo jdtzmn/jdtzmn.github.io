@@ -6,6 +6,7 @@ function determineRedirectURL(
 ): string | undefined {
   switch (contentType) {
     case 'homepage':
+    case 'showcase':
       return '/'
   }
 }

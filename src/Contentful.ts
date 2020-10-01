@@ -1,6 +1,14 @@
 import * as contentful from 'contentful'
 import { guardEnv } from './utils'
 
+export interface File {
+  contentType: string
+  details: Record<string, any>
+  fileName: string
+  url: string
+  title: string
+}
+
 export default class Contentful {
   static createClient(preview: boolean) {
     const space = guardEnv('CONTENTFUL_SPACE_ID')

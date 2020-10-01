@@ -5,10 +5,17 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
 import Fade from 'react-reveal/Fade'
 import Navbar from 'components/shared/Navbar'
-import PreviewBanner, { PreviewProps } from 'components/shared/PreviewBanner'
 import { VerticalAlign, Container, Title, Subtitle } from 'components/styled'
 import BoxArtwork from 'components/homepage/BoxArtwork'
+import Showcase, { ShowcaseData } from 'components/homepage/Showcase'
 import Contentful from 'src/Contentful'
+
+const AboveFoldGradient = styled.div`
+  background: linear-gradient(
+    ${({ theme }) => theme.colors.background},
+    #060929
+  );
+`
 
 const ResponsiveVerticalAlign = styled(VerticalAlign)`
   @media screen and (min-width: 768px) {
@@ -51,51 +58,61 @@ interface HomepageData {
   blurb: Document
 }
 
-interface IndexProps extends PreviewProps {
+interface IndexProps {
   homepageData: HomepageData
+  showcaseData: ShowcaseData[]
 }
 
-export default function Index({ preview, homepageData }: IndexProps) {
+export default function Index({ showcaseData, homepageData }: IndexProps) {
   return (
     <>
-      <Navbar />
-      <ResponsiveVerticalAlign>
-        <FlexContainer>
-          <Introduction>
-            <TitleWithoutPadding>
-              <Fade bottom>
-                <Tada delay={100}>👋 &nbsp;</Tada>
+      <AboveFoldGradient>
+        <Navbar />
+        <ResponsiveVerticalAlign>
+          <FlexContainer>
+            <Introduction>
+              <TitleWithoutPadding>
+                <Fade bottom>
+                  <Tada delay={100}>👋 &nbsp;</Tada>
+                </Fade>
+                <Fade bottom cascade delay={200}>
+                  i’m jacob
+                </Fade>
+              </TitleWithoutPadding>
+              <ColoredSubtitle>
+                <Fade bottom delay={600}>
+                  {homepageData.callToAction}
+                </Fade>
+              </ColoredSubtitle>
+              <Fade bottom cascade delay={1000} distance="32px">
+                <div>{documentToReactComponents(homepageData.blurb)}</div>
               </Fade>
-              <Fade bottom cascade delay={200}>
-                i’m jacob
+            </Introduction>
+            <Artwork>
+              <Fade delay={1800}>
+                <BoxArtwork animationDelay={1900} />
               </Fade>
-            </TitleWithoutPadding>
-            <ColoredSubtitle>
-              <Fade bottom delay={600}>
-                {homepageData.callToAction}
-              </Fade>
-            </ColoredSubtitle>
-            <Fade bottom cascade delay={1000} distance="32px">
-              <div>{documentToReactComponents(homepageData.blurb)}</div>
-            </Fade>
-          </Introduction>
-          <Artwork>
-            <Fade delay={1800}>
-              <BoxArtwork animationDelay={1900} />
-            </Fade>
-          </Artwork>
-        </FlexContainer>
-        <PreviewBanner isPreview={preview} />
-      </ResponsiveVerticalAlign>
+            </Artwork>
+          </FlexContainer>
+        </ResponsiveVerticalAlign>
+      </AboveFoldGradient>
+      <Showcase items={showcaseData} />
     </>
   )
 }
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   let homepageData: HomepageData = null
+  let showcaseData: ShowcaseData[] = null
   try {
-    const homepageEntries = await Contentful.getEntries('homepage', preview)
+    const [homepageEntries, showcaseEntries] = await Promise.all([
+      Contentful.getEntries('homepage', preview),
+      Contentful.getEntries('showcase', preview),
+    ])
     homepageData = homepageEntries.items[0].fields as HomepageData
+    showcaseData = showcaseEntries.items.map(
+      (entry) => entry.fields
+    ) as ShowcaseData[]
   } catch (err) {
     console.error(err)
   }
@@ -104,6 +121,7 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
     props: {
       preview: preview || null,
       homepageData,
+      showcaseData,
     },
     revalidate: 60,
   }

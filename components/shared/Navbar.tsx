@@ -11,6 +11,7 @@ import {
 } from 'react-icons/ri'
 import { Collapse } from 'react-collapse'
 import Fade from 'react-reveal/Fade'
+import useResponsive from 'src/hooks/useResponsive'
 import { Container, Button } from 'components/styled'
 
 interface NavbarLink {
@@ -38,12 +39,8 @@ const navbarLinks: NavbarLink[] = [
 ]
 
 const DesktopNavbarContainer = styled(Container)`
-  display: none;
-
-  @media (min-width: 481px) {
-    display: flex;
-    flex-flow: row wrap;
-  }
+  display: flex;
+  flex-flow: row wrap;
 `
 
 interface MobileNavbarContainerProps {
@@ -61,10 +58,6 @@ const MobileNavbarContainer = styled(Container)<MobileNavbarContainerProps>`
   & > :first-child {
     /* collapse content */
     flex: 1;
-  }
-
-  @media (min-width: 481px) {
-    display: none;
   }
 `
 
@@ -100,6 +93,7 @@ interface NavbarProps {
 
 export default function Navbar({ animationDelay = 0 }: NavbarProps) {
   const [open, setOpen] = useState(false)
+  const { isMobile } = useResponsive()
 
   function toggleCollapse() {
     setOpen(!open)
@@ -133,17 +127,20 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
 
   return (
     <>
-      <DesktopNavbarContainer>{navbarContent}</DesktopNavbarContainer>
-      <MobileNavbarContainer isOpened={open}>
-        <Collapse isOpened={open}>{navbarContent}</Collapse>
-        <Fade delay={animationDelay}>
-          <Button kind="text" onClick={toggleCollapse}>
-            <IconContext.Provider value={{ size: '1.5em' }}>
-              {collapseIcon}
-            </IconContext.Provider>
-          </Button>
-        </Fade>
-      </MobileNavbarContainer>
+      {isMobile ? (
+        <MobileNavbarContainer isOpened={open}>
+          <Collapse isOpened={open}>{navbarContent}</Collapse>
+          <Fade delay={animationDelay}>
+            <Button kind="text" onClick={toggleCollapse}>
+              <IconContext.Provider value={{ size: '1.5em' }}>
+                {collapseIcon}
+              </IconContext.Provider>
+            </Button>
+          </Fade>
+        </MobileNavbarContainer>
+      ) : (
+        <DesktopNavbarContainer>{navbarContent}</DesktopNavbarContainer>
+      )}
     </>
   )
 }

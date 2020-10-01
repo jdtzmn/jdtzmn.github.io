@@ -1,21 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 
-/**
- * @description A helper for page props that will have the `preview` value passed from context to the props
- * @export
- * @interface PreviewProps
- *
- * Usage:
- *   function Page(props: PreviewProps) {
- *     [...]
- *   }
- *
- */
-export interface PreviewProps {
-  preview: boolean
-}
-
 const Banner = styled.div`
   position: absolute;
   top: 0;
