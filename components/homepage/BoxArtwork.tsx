@@ -8,7 +8,11 @@ const Canvas = styled.canvas`
   margin: 0 auto;
 `
 
-export default function BoxArtwork() {
+interface BoxArtworkProps {
+  animationDelay?: number // ms
+}
+
+export default function BoxArtwork({ animationDelay = 0 }: BoxArtworkProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
 
   const [width, setWidth] = useState(264)
@@ -24,7 +28,7 @@ export default function BoxArtwork() {
     // start the animation
     const animator = new BoxAnimator(context, 7600)
     setupAnimations(animator)
-    animator.start()
+    setTimeout(() => animator.start(), animationDelay)
 
     // adjust the box edge width based on the window width
     function responsiveEdgeLength() {

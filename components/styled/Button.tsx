@@ -7,7 +7,7 @@ const DefaultButton = styled.button`
   color: ${({ theme }) => theme.colors.primary};
   background: transparent;
   padding: 0.75em 1.5em;
-  font: 600 0.9em 'Fira Code', monospace;
+  font: 600 1em 'Inconsolata', monospace;
   border: 2.5px solid ${({ theme }) => theme.colors.primary};
   border-radius: 8px;
   box-shadow: 0 1px 8px ${({ theme }) => theme.colors.primary},

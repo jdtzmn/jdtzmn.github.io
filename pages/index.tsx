@@ -2,6 +2,8 @@ import { GetStaticPropsContext } from 'next'
 import styled from 'styled-components'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import Tada from 'react-reveal/Tada'
+import Fade from 'react-reveal/Fade'
 import Navbar from 'components/shared/Navbar'
 import PreviewBanner, { PreviewProps } from 'components/shared/PreviewBanner'
 import { VerticalAlign, Container, Title, Subtitle } from 'components/styled'
@@ -35,6 +37,7 @@ const Artwork = styled(VerticalAlign)`
 `
 
 const TitleWithoutPadding = styled(Title)`
+  display: flex;
   margin-bottom: 0;
 `
 
@@ -59,12 +62,27 @@ export default function Index({ preview, homepageData }: IndexProps) {
       <ResponsiveVerticalAlign>
         <FlexContainer>
           <Introduction>
-            <TitleWithoutPadding>👋 &nbsp;i’m jacob</TitleWithoutPadding>
-            <ColoredSubtitle>{homepageData.callToAction}</ColoredSubtitle>
-            {documentToReactComponents(homepageData.blurb)}
+            <TitleWithoutPadding>
+              <Fade bottom>
+                <Tada delay={100}>👋 &nbsp;</Tada>
+              </Fade>
+              <Fade bottom cascade delay={200}>
+                i’m jacob
+              </Fade>
+            </TitleWithoutPadding>
+            <ColoredSubtitle>
+              <Fade bottom delay={600}>
+                {homepageData.callToAction}
+              </Fade>
+            </ColoredSubtitle>
+            <Fade bottom cascade delay={1000} distance="32px">
+              <div>{documentToReactComponents(homepageData.blurb)}</div>
+            </Fade>
           </Introduction>
           <Artwork>
-            <BoxArtwork />
+            <Fade delay={1800}>
+              <BoxArtwork animationDelay={1900} />
+            </Fade>
           </Artwork>
         </FlexContainer>
         <PreviewBanner isPreview={preview} />

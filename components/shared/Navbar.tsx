@@ -10,6 +10,7 @@ import {
   RiCloseFill,
 } from 'react-icons/ri'
 import { Collapse } from 'react-collapse'
+import Fade from 'react-reveal/Fade'
 import { Container, Button } from 'components/styled'
 
 interface NavbarLink {
@@ -78,11 +79,11 @@ const LinkButton = styled(Button)`
     &:first-child {
       margin-left: 0;
     }
-
-    &:last-of-type {
-      margin-right: auto;
-    }
   }
+`
+
+const AlignRight = styled.div`
+  margin-left: auto;
 `
 
 const ResumeButton = styled(Button)`
@@ -91,27 +92,13 @@ const ResumeButton = styled(Button)`
   }
 `
 
-const CollapseButtonColumn = styled.div``
+const navbarButtonsAnimationDelay = 75
 
-const CollapseButton = styled(Button)``
-
-function NavbarContent() {
-  return (
-    <IconContext.Provider value={{ size: '0.75em' }}>
-      {navbarLinks.map((navbarLink) => (
-        <Link href={navbarLink.to} passHref key={navbarLink.to}>
-          <LinkButton kind="text" forwardedAs={'a' as never}>
-            {navbarLink.icon}
-            {' ' + navbarLink.text}
-          </LinkButton>
-        </Link>
-      ))}
-      <ResumeButton kind="gray">Resume</ResumeButton>
-    </IconContext.Provider>
-  )
+interface NavbarProps {
+  animationDelay?: number
 }
 
-export default function Navbar() {
+export default function Navbar({ animationDelay = 0 }: NavbarProps) {
   const [open, setOpen] = useState(false)
 
   function toggleCollapse() {
@@ -120,22 +107,42 @@ export default function Navbar() {
 
   const collapseIcon = open ? <RiCloseFill /> : <RiMenu3Line />
 
+  const navbarContent = (
+    <IconContext.Provider value={{ size: '0.75em' }}>
+      {navbarLinks.map((navbarLink, index) => (
+        <Link href={navbarLink.to} passHref key={navbarLink.to}>
+          <Fade delay={animationDelay + index * navbarButtonsAnimationDelay}>
+            <LinkButton kind="text" forwardedAs={'a' as never}>
+              {navbarLink.icon}
+              {' ' + navbarLink.text}
+            </LinkButton>
+          </Fade>
+        </Link>
+      ))}
+      <AlignRight>
+        <Fade
+          delay={
+            animationDelay + navbarLinks.length * navbarButtonsAnimationDelay
+          }
+        >
+          <ResumeButton kind="gray">Resume</ResumeButton>
+        </Fade>
+      </AlignRight>
+    </IconContext.Provider>
+  )
+
   return (
     <>
-      <DesktopNavbarContainer>
-        <NavbarContent />
-      </DesktopNavbarContainer>
+      <DesktopNavbarContainer>{navbarContent}</DesktopNavbarContainer>
       <MobileNavbarContainer isOpened={open}>
-        <Collapse isOpened={open}>
-          <NavbarContent />
-        </Collapse>
-        <CollapseButtonColumn>
-          <CollapseButton kind="text" onClick={toggleCollapse}>
+        <Collapse isOpened={open}>{navbarContent}</Collapse>
+        <Fade delay={animationDelay}>
+          <Button kind="text" onClick={toggleCollapse}>
             <IconContext.Provider value={{ size: '1.5em' }}>
               {collapseIcon}
             </IconContext.Provider>
-          </CollapseButton>
-        </CollapseButtonColumn>
+          </Button>
+        </Fade>
       </MobileNavbarContainer>
     </>
   )
