@@ -1,6 +1,6 @@
 import { GetStaticPropsContext } from 'next'
 import styled from 'styled-components'
-import { lighten } from 'polished'
+import { lighten, tint } from 'polished'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
@@ -51,7 +51,7 @@ const TitleWithoutPadding = styled(Title)`
 
 const ColoredSubtitle = styled(Subtitle)`
   margin-top: 5px;
-  color: #91cdf8;
+  color: ${({ theme }) => tint(0.2, theme.colors.primary)};
 `
 
 interface HomepageData {

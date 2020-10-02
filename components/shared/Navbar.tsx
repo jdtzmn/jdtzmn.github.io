@@ -83,6 +83,9 @@ const AlignRight = styled.div`
 `
 
 const ResumeButton = styled(Button)`
+  color: ${({ theme }) =>
+    theme.light ? theme.colors.primary : theme.colors.gray};
+
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}px) {
     margin-top: 12px;
   }
@@ -109,7 +112,7 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
       {navbarLinks.map((navbarLink, index) => (
         <Link href={navbarLink.to} passHref key={navbarLink.to}>
           <Fade delay={animationDelay + index * navbarButtonsAnimationDelay}>
-            <LinkButton kind="text" forwardedAs={'a' as never}>
+            <LinkButton tabIndex={1} kind="text" forwardedAs={'a' as never}>
               {navbarLink.icon}
               {' ' + navbarLink.text}
             </LinkButton>

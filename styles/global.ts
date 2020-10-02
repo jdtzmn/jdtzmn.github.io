@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { transparentize } from 'polished'
+import { readableColor, transparentize } from 'polished'
 
 const GlobalStyles = createGlobalStyle`
   html, body {
@@ -25,15 +25,16 @@ const GlobalStyles = createGlobalStyle`
 
   a {
     color: ${({ theme }) => theme.colors.text};
-    font-weight: 500;
-  }
-
-  a:visited {
-    color: ${({ theme }) => theme.colors.gray};
   }
 
   .ReactCollapse--collapse {
     transition: height 400ms;
+  }
+
+  ::selection {
+    background: ${({ theme }) => transparentize(0.1, theme.colors.secondary)};
+    color: ${({ theme }) =>
+      readableColor(theme.colors.secondary, theme.lightText, theme.darkText)}
   }
 `
 

@@ -1,10 +1,11 @@
+import { setLightness } from 'polished'
 import { theme } from 'pages/_app'
 
 class Config {
   static readonly leftColor = theme.colors.primary
   static readonly rightColor = theme.colors.secondary
   static readonly topColor = theme.colors.white
-  static readonly borderColor = theme.colors.gray
+  static readonly borderColor = setLightness(0.85, theme.colors.gray)
   static readonly hertz = 60
 }
 

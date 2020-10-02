@@ -7,7 +7,7 @@ export const theme = defaultTheme
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <PreviewBanner isPreview={pageProps.preview} />
       <Component {...pageProps} />
       <GlobalStyles />
