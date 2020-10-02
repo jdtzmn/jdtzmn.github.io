@@ -23,6 +23,15 @@ const GlobalStyles = createGlobalStyle`
     border-color: ${({ theme }) => transparentize(0.9, theme.colors.text)};
   }
 
+  a {
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 500;
+  }
+
+  a:visited {
+    color: ${({ theme }) => theme.colors.gray};
+  }
+
   .ReactCollapse--collapse {
     transition: height 400ms;
   }
