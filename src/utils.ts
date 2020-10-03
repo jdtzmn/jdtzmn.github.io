@@ -1,8 +1,9 @@
 // ensure that an environment variable is set
-export function guardEnv(name: string) {
-  if (typeof process.env[name] === 'undefined') {
+export function guardEnv(name: string, value?: string) {
+  const valueIsUndefined = typeof value === 'undefined'
+  if (valueIsUndefined && typeof process.env[name] === 'undefined') {
     throw new Error(`${name} environment variable must be set.`)
   }
 
-  return process.env[name]
+  return valueIsUndefined ? process.env[name] : value
 }

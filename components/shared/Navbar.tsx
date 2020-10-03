@@ -110,14 +110,17 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
   const navbarContent = (
     <IconContext.Provider value={{ size: '0.75em' }}>
       {navbarLinks.map((navbarLink, index) => (
-        <Link href={navbarLink.to} passHref key={navbarLink.to}>
-          <Fade delay={animationDelay + index * navbarButtonsAnimationDelay}>
+        <Fade
+          delay={animationDelay + index * navbarButtonsAnimationDelay}
+          key={navbarLink.to}
+        >
+          <Link href={navbarLink.to} passHref>
             <LinkButton tabIndex={1} kind="text" forwardedAs={'a' as never}>
               {navbarLink.icon}
               {' ' + navbarLink.text}
             </LinkButton>
-          </Fade>
-        </Link>
+          </Link>
+        </Fade>
       ))}
       <AlignRight>
         <Fade
