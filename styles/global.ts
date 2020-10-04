@@ -10,11 +10,14 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    background: ${({ theme }) => theme.colors.background};
+  }
+
+  body, input, textarea {
     font-family: 'Inter', sans-serif;
     font-size: min(max(1.1vw, 16px), 22px);
     font-weight: 300;
     line-height: 1.5;
-    background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
   }
 

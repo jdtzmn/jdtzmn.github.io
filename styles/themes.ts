@@ -36,7 +36,10 @@ class DefaultTheme {
     background: '#081338',
     primary: '#4AAFF7',
     secondary: '#EE5185',
+    danger: 'red',
   }
+
+  public animationDuration = '0.3s'
 
   public breakpoints = breakpoints
 }
@@ -54,6 +57,7 @@ lightTheme.colors = {
   background: '#ecf3f8',
   primary: '#2176FF',
   secondary: '#fb683c',
+  danger: 'red',
 }
 
 // Type Definitions

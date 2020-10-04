@@ -1,8 +1,10 @@
-import { ComponentPropsWithRef } from 'react'
 import styled from 'styled-components'
 
-// styled buttons
-const DefaultButton = styled.button`
+interface ButtonProps {
+  kind?: string
+}
+
+const Button = styled.button<ButtonProps>`
   display: block;
   color: ${({ theme }) => theme.colors.primary};
   background: transparent;
@@ -12,13 +14,13 @@ const DefaultButton = styled.button`
   border-radius: 8px;
   text-decoration: none; /* for use with links */
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all ${({ theme }) => theme.animationDuration};
   ${({ theme }) =>
     theme.light
       ? 'box-shadow: 0 0 2px, inset 0 0 2px;'
       : 'box-shadow: 0 1px 8px, inset 0 0 8px;'}
 
-  &:hover {
+  &:hover:not(:disabled) {
     ${({ theme }) =>
       theme.light
         ? 'box-shadow: 0 1px 8px, inset 0 0 1px;'
@@ -28,41 +30,23 @@ const DefaultButton = styled.button`
   &:active {
     box-shadow: none;
   }
-`
 
-const SecondaryButton = styled(DefaultButton)`
-  color: ${({ theme }) => theme.colors.secondary};
-`
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-const GrayButton = styled(DefaultButton)`
-  color: ${({ theme }) => theme.colors.gray};
-`
+  ${({ kind, theme }) =>
+    kind === 'secondary' && `color: ${theme.colors.secondary};`}
 
-const TextButton = styled(DefaultButton)`
-  color: ${({ theme }) => theme.colors.headers};
+  ${({ kind, theme }) => kind === 'gray' && `color: ${theme.colors.gray};`}
+
+  ${({ kind, theme }) =>
+    kind === 'text' &&
+    `
+  color: ${theme.colors.headers};
   border-color: transparent;
   box-shadow: none !important;
+  `}
 `
-
-// button component
-
-type ButtonType = 'primary' | 'secondary' | 'gray' | 'text'
-
-interface ButtonProps extends ComponentPropsWithRef<'button'> {
-  kind?: ButtonType
-  as?: never
-}
-
-export default function Button({ kind, children, ...props }: ButtonProps) {
-  switch (kind) {
-    case 'secondary':
-      return <SecondaryButton {...props}>{children}</SecondaryButton>
-    case 'gray':
-      return <GrayButton {...props}>{children}</GrayButton>
-    case 'text':
-      return <TextButton {...props}>{children}</TextButton>
-    case 'primary':
-    default:
-      return <DefaultButton {...props}>{children}</DefaultButton>
-  }
-}
+export default Button
