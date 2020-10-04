@@ -49,14 +49,27 @@ export default function BoxArtwork({ animationDelay = 0 }: BoxArtworkProps) {
     }
 
     // pause the animation on window resize
+    let lastWidth = null
     function onResize() {
-      animator.pause()
+      if (lastWidth === null) {
+        lastWidth = window.innerWidth
+      }
+
+      /**
+       * only pause the animation if a change in width is detected
+       * - this was an issue on iOS where the responsive menu bar inadvertently resizes the page
+       */
+      if (lastWidth !== window.innerWidth) {
+        animator.pause()
+      }
 
       onResizeEnd()
     }
 
     // debounce until resize ends, then start the animation again
     const onResizeEnd = debounce(() => {
+      lastWidth = null
+
       // adjust edge length
       responsiveEdgeLength()
 
