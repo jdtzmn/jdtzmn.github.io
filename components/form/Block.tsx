@@ -170,7 +170,10 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
 
   // focus and scroll into view on select
   useEffect(() => {
-    if (props.blockContext?.selected) {
+    if (
+      props.blockContext?.selected &&
+      props.blockContext?.autoscrollFeatures
+    ) {
       if (elementRef.current?.focus) {
         elementRef.current.focus()
         blockRef.current.scrollIntoView({
@@ -185,7 +188,7 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
   let children = props.children
   try {
     const child = Children.only(children)
-    if (isValidElement(child)) {
+    if (isValidElement(child) && props.blockContext?.autoscrollFeatures) {
       const additionalProps = {
         ref: mergeRefs('ref' in child ? (child as any).ref : null, elementRef),
         onFocus: wrapEventWith(child.props.onFocus, handleFocus),
@@ -208,12 +211,14 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
 
   return (
     <BlockContainer
-      selected={props.blockContext?.selected}
+      selected={
+        props.blockContext?.selected || !props.blockContext?.autoscrollFeatures
+      }
       onClick={handleBlockClick}
       ref={blockRef}
     >
       {/* back button */}
-      {!props.blockContext?.isFirst && (
+      {!props.blockContext?.isFirst && props.blockContext?.autoscrollFeatures && (
         <Fade
           when={props.blockContext?.selected}
           duration={300}
@@ -241,7 +246,7 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
       {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
 
       {/* next button */}
-      {!props.blockContext?.isLast && (
+      {!props.blockContext?.isLast && props.blockContext?.autoscrollFeatures && (
         <Fade
           when={props.blockContext?.selected}
           duration={300}

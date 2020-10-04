@@ -28,6 +28,8 @@ interface FormData {
   message: string
 }
 
+const ENABLE_AUTOSCROLL = false
+
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
@@ -70,7 +72,7 @@ export default function Contact() {
   const form = (
     <>
       <CenteredSubtitle>Get in Touch</CenteredSubtitle>
-      <Form onSubmit={onSubmit}>
+      <Form disableAutoscroll={!ENABLE_AUTOSCROLL} onSubmit={onSubmit}>
         <Block
           prompt="What is your name?"
           required
@@ -96,7 +98,7 @@ export default function Contact() {
             type="email"
             placeholder="Type your answer here..."
             ref={register({
-              required: "I can't respond if you don't give me an email..",
+              required: 'Email is required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Invalid email address',
@@ -108,7 +110,11 @@ export default function Contact() {
           prompt="What's your message?"
           required
           nextShortcut={commandEnterShortcut}
-          helpText="Use ⌘-Enter or Ctrl-Enter to continue."
+          helpText={
+            ENABLE_AUTOSCROLL
+              ? 'Use ⌘-Enter or Ctrl-Enter to continue.'
+              : 'Maximum of 1500 characters'
+          }
           error={errors.message}
         >
           <LongAnswer

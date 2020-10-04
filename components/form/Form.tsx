@@ -17,13 +17,19 @@ export interface BlockContext {
   isFirst: boolean
   isLast: boolean
   shouldSubmit: boolean
+  autoscrollFeatures: boolean
   selectBlock: (delta?: -1 | 0 | 1) => void
+}
+
+interface FormProps extends ComponentPropsWithoutRef<'form'> {
+  disableAutoscroll?: boolean
 }
 
 export default function Form({
   children,
+  disableAutoscroll,
   ...props
-}: ComponentPropsWithoutRef<'form'>) {
+}: FormProps) {
   const [currentBlockIndex, setCurrentBlockIndex] = useState(0)
   const lastIndex = Children.count(children) - 1
 
@@ -48,6 +54,7 @@ export default function Form({
       isFirst: index === 0,
       isLast: index === lastIndex,
       shouldSubmit: currentBlockIndex === lastIndex,
+      autoscrollFeatures: !disableAutoscroll,
       selectBlock: (delta) => handleBlockSelection(index, delta),
     }
 
