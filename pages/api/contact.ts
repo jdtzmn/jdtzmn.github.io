@@ -12,7 +12,9 @@ ${message}
 </p>
 <br/><br/>
 <sub>
-  <i>Click "Reply" to respond to these comments</i>
+  <b>This message is from your portfolio website.</b>
+  <br/>
+  <i>Click "Reply" to respond to these comments.</i>
 </sub>
   `
 
