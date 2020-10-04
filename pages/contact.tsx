@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
+import useResponsive from 'src/hooks/useResponsive'
 import Navbar from 'components/shared/Navbar'
 import { Container, Subtitle, Button } from 'components/styled'
 import {
@@ -28,12 +29,12 @@ interface FormData {
   message: string
 }
 
-const ENABLE_AUTOSCROLL = false
-
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+
+  const { isTablet } = useResponsive()
 
   const { register, handleSubmit, errors } = useForm<FormData>()
   const onSubmit = handleSubmit(async ({ name, email, message }) => {
@@ -72,7 +73,7 @@ export default function Contact() {
   const form = (
     <>
       <CenteredSubtitle>Get in Touch</CenteredSubtitle>
-      <Form disableAutoscroll={!ENABLE_AUTOSCROLL} onSubmit={onSubmit}>
+      <Form disableAutoscroll={!isTablet} onSubmit={onSubmit}>
         <Block
           prompt="What is your name?"
           required
@@ -110,11 +111,7 @@ export default function Contact() {
           prompt="What's your message?"
           required
           nextShortcut={commandEnterShortcut}
-          helpText={
-            ENABLE_AUTOSCROLL
-              ? 'Use ⌘-Enter or Ctrl-Enter to continue.'
-              : 'Maximum of 1500 characters'
-          }
+          helpText="Maximum of 1500 characters"
           error={errors.message}
         >
           <LongAnswer
