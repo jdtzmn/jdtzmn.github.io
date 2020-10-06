@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
 import useResponsive from 'src/hooks/useResponsive'
-import Navbar from 'components/shared/Navbar'
-import { Container, Subtitle, Button } from 'components/styled'
+import { Subtitle, Button } from 'components/styled'
 import {
   Form,
   Block,
@@ -13,11 +12,7 @@ import {
   LongAnswer,
   commandEnterShortcut,
 } from 'components/form'
-
-const CenteredSubtitle = styled(Subtitle)`
-  text-align: center;
-  margin: 0.25em 0 2.5em;
-`
+import Page from 'components/shared/Page'
 
 const CenteredText = styled.div`
   text-align: center;
@@ -72,7 +67,6 @@ export default function Contact() {
 
   const form = (
     <>
-      <CenteredSubtitle>Get in Touch</CenteredSubtitle>
       <Form disableAutoscroll={!isTablet} onSubmit={onSubmit}>
         <Block
           prompt="What is your name?"
@@ -135,10 +129,11 @@ export default function Contact() {
     </>
   )
 
+  const header = !success && 'Get in Touch'
+
   return (
-    <>
-      <Navbar />
-      <Container>{success ? successMessage : form}</Container>
-    </>
+    <Page name="Contact" header={header}>
+      {success ? successMessage : form}
+    </Page>
   )
 }

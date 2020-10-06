@@ -5,8 +5,7 @@ import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
 import Fade from 'react-reveal/Fade'
-import Navbar from 'components/shared/Navbar'
-import Footer from 'components/shared/Footer'
+import { PageTitle, Navbar, Footer } from 'components/shared'
 import { VerticalAlign, Container, Title, Subtitle } from 'components/styled'
 import BoxArtwork from 'components/homepage/BoxArtwork'
 import Showcase, { ShowcaseData } from 'components/homepage/Showcase'
@@ -68,6 +67,7 @@ interface IndexProps {
 export default function Index({ showcaseData, homepageData }: IndexProps) {
   return (
     <>
+      <PageTitle />
       <AboveFoldGradient>
         <Navbar />
         <ResponsiveVerticalAlign>
