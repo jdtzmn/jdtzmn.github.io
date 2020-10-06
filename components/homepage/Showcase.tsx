@@ -33,6 +33,7 @@ interface FlexRowProps {
 const FlexRow = styled.div<FlexRowProps>`
   display: flex;
   padding-${({ isOddRow }) => (isOddRow ? 'left' : 'right')}: 12.5%;
+  overflow-x: hidden;
 `
 
 const ShowcaseInfo = styled(VerticalAlign)`
