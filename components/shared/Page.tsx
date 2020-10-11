@@ -3,7 +3,17 @@ import styled from 'styled-components'
 import { Container, Subtitle } from 'components/styled'
 import { PageTitle, Navbar, Footer } from './'
 
-const CenteredSubtitle = styled(Subtitle)`
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`
+
+const FlexGrow = styled.div`
+  flex-grow: 1;
+`
+
+export const CenteredSubtitle = styled(Subtitle)`
   text-align: center;
   margin: 0.25em 0 2.5em;
 `
@@ -30,11 +40,13 @@ export default function Page({
   )
 
   return (
-    <>
-      <PageTitle breadcrumbs={[name]} />
-      <Navbar animationDelay={animationDelay} />
-      {noContainer ? content : <Container>{content}</Container>}
+    <FlexWrapper>
+      <FlexGrow>
+        <PageTitle breadcrumbs={[name]} />
+        <Navbar animationDelay={animationDelay} />
+        {noContainer ? content : <Container>{content}</Container>}
+      </FlexGrow>
       <Footer />
-    </>
+    </FlexWrapper>
   )
 }

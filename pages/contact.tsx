@@ -13,6 +13,7 @@ import {
   commandEnterShortcut,
 } from 'components/form'
 import Page from 'components/shared/Page'
+import { guardEnv } from 'src/utils'
 
 const CenteredText = styled.div`
   text-align: center;
@@ -65,8 +66,19 @@ export default function Contact() {
     </Fade>
   )
 
+  const contactEmail = guardEnv(
+    'NEXT_PUBLIC_CONTACT_EMAIL',
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL
+  )
+
   const form = (
     <>
+      <p>
+        Send me an email at{' '}
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a> or submit the
+        following form:
+      </p>
+      <br />
       <Form disableAutoscroll={!isTablet} onSubmit={onSubmit}>
         <Block
           prompt="What is your name?"

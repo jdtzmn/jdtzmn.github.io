@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 import { readableColor, transparentize } from 'polished'
 
 const GlobalStyles = createGlobalStyle`
-  html, body {
+  html, body, #__next {
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -19,6 +19,11 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     line-height: 1.5;
     color: ${({ theme }) => theme.colors.text};
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: ${({ theme }) => theme.colors.headers};
+    font-weight: 500;
   }
 
   hr {

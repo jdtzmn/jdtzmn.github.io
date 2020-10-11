@@ -26,7 +26,7 @@ function constructEmail(name: string, email: string, message: string) {
   const [html, text] = emailContent(name, email, message)
 
   const msg: sgMail.MailDataRequired = {
-    to: guardEnv('CONTACT_EMAIL'),
+    to: guardEnv('NEXT_PUBLIC_CONTACT_EMAIL'),
     from: {
       email: guardEnv('SENDGRID_SENDER'),
       name,

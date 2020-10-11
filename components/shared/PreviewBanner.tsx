@@ -14,6 +14,14 @@ const Banner = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
 `
 
+const ExitPreviewLink = styled.a`
+  color: blue;
+
+  &::visited {
+    color: blue;
+  }
+`
+
 interface PreviewBannerProps {
   isPreview: boolean
 }
@@ -24,7 +32,9 @@ export default function PreviewBanner({ isPreview }: PreviewBannerProps) {
   return (
     <Banner>
       <span style={{ flex: 1 }}>You are in preview mode</span>
-      <Link href="/api/exit-preview">Exit preview mode</Link>
+      <Link passHref href="/api/exit-preview">
+        <ExitPreviewLink>Exit preview mode</ExitPreviewLink>
+      </Link>
     </Banner>
   )
 }

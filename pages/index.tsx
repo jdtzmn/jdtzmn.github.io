@@ -1,6 +1,6 @@
 import { GetStaticPropsContext } from 'next'
 import styled from 'styled-components'
-import { lighten, tint } from 'polished'
+import { lighten } from 'polished'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
@@ -49,9 +49,8 @@ const TitleWithoutPadding = styled(Title)`
   margin-bottom: 0;
 `
 
-const ColoredSubtitle = styled(Subtitle)`
+const BlurbSubtitle = styled(Subtitle)`
   margin-top: 5px;
-  color: ${({ theme }) => tint(0.2, theme.colors.primary)};
 `
 
 interface HomepageData {
@@ -81,11 +80,11 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
                   i’m jacob
                 </Fade>
               </TitleWithoutPadding>
-              <ColoredSubtitle>
+              <BlurbSubtitle colored>
                 <Fade bottom delay={600}>
                   {homepageData.callToAction}
                 </Fade>
-              </ColoredSubtitle>
+              </BlurbSubtitle>
               <Fade bottom cascade delay={1000} distance="32px">
                 <div>{documentToReactComponents(homepageData.blurb)}</div>
               </Fade>
@@ -118,6 +117,7 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
     ) as ShowcaseData[]
   } catch (err) {
     console.error(err)
+    throw err
   }
 
   return {

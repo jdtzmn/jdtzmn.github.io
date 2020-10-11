@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const Background = styled.footer`
   background: ${({ theme }) => darken(0.025, theme.colors.background)};
-  padding: 64px;
+  padding: 32px;
   padding-bottom: 48px;
 `
 
@@ -30,9 +30,7 @@ const FooterSection = styled.div`
 
 const FooterSectionTitle = styled.p`
   color: ${({ theme }) =>
-    theme.light
-      ? lighten(0.2, theme.colors.text)
-      : darken(0.05, theme.colors.text)};
+    theme.light ? lighten(0.2, theme.colors.text) : theme.colors.text};
   font-size: 0.9em;
   font-weight: 400;
 `
@@ -41,7 +39,7 @@ const FooterAnchor = styled(Button)`
   color: ${({ theme }) =>
     theme.light
       ? lighten(0.5, theme.colors.text)
-      : darken(0.3, theme.colors.text)};
+      : darken(0.2, theme.colors.text)};
   font-family: 'Inter', sans-serif;
   font-size: 0.9em;
   font-weight: 500;
