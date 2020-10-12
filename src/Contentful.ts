@@ -35,4 +35,18 @@ export default class Contentful {
       ...query,
     })
   }
+
+  static async getAssetByFileName(
+    fileName: string
+  ): Promise<null | contentful.Asset> {
+    const { items, total } = await Contentful.createClient(false).getAssets({
+      'fields.file.fileName': fileName,
+    })
+
+    if (total === 0) {
+      return null
+    }
+
+    return items[0]
+  }
 }

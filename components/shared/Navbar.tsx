@@ -128,7 +128,11 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
             animationDelay + navbarLinks.length * navbarButtonsAnimationDelay
           }
         >
-          <ResumeButton kind="gray">Resume</ResumeButton>
+          <Link href="/api/asset/Jacob Daitzman Resume.pdf" passHref>
+            <ResumeButton kind="gray" as="a" target="_blank">
+              Resume
+            </ResumeButton>
+          </Link>
         </Fade>
       </AlignRight>
     </IconContext.Provider>
