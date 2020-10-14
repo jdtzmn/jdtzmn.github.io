@@ -1,10 +1,12 @@
 import { GetStaticPathsResult, GetStaticPropsContext } from 'next'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { transparentize } from 'polished'
 import Page from 'components/shared/Page'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
+import ContentNotFound from 'components/shared/ContentNotFound'
 import { Container, Heading, Subtitle, ImagePreview } from 'components/styled'
 import ContactIfError from 'components/shared/ContactIfError'
 import { Asset } from 'contentful'
@@ -66,6 +68,12 @@ interface ProjectProps {
 }
 
 export default function Project({ projectData }: ProjectProps) {
+  const router = useRouter()
+
+  if (!projectData || router.isFallback) {
+    return <ContentNotFound />
+  }
+
   const cover = projectData.cover?.fields
   const progressiveCoverUrl = cover && cover.file.url + '?fm=jpg&fl=progressive'
 
@@ -119,5 +127,5 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     }
   })
 
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 }
