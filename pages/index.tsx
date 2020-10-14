@@ -106,19 +106,12 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   let homepageData: HomepageData = null
   let showcaseData: ShowcaseData[] = null
-  try {
-    const [homepageEntries, showcaseEntries] = await Promise.all([
-      Contentful.getEntries('homepage', preview),
-      Contentful.getEntries('showcase', preview),
-    ])
-    homepageData = homepageEntries.items[0].fields as HomepageData
-    showcaseData = showcaseEntries.items.map(
-      (entry) => entry.fields
-    ) as ShowcaseData[]
-  } catch (err) {
-    console.error(err)
-    throw err
-  }
+  const [homepageEntries, showcaseEntries] = await Promise.all([
+    Contentful.getEntries<HomepageData>('homepage', preview),
+    Contentful.getEntries<ShowcaseData>('showcase', preview),
+  ])
+  homepageData = homepageEntries.items[0].fields
+  showcaseData = showcaseEntries.items.map((entry) => entry.fields)
 
   return {
     props: {

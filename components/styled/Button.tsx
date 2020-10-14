@@ -9,7 +9,7 @@ const Button = styled.button<ButtonProps>`
   color: ${({ theme }) => theme.colors.primary};
   background: transparent;
   padding: 0.75em 1.5em;
-  font: 600 1em 'Inconsolata', monospace;
+  font: 700 1em 'Inconsolata', monospace;
   border: ${({ theme }) => (theme.light ? '1px' : '2.5px')} solid;
   border-radius: 8px;
   text-decoration: none; /* for use with links */

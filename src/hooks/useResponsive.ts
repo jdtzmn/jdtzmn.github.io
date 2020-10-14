@@ -4,7 +4,7 @@ import { theme } from 'pages/_app'
 
 const { mobile: mobileBreakpoint, tablet: tabletBreakpoint } = theme.breakpoints
 
-function useResponsive() {
+function useResponsive(customBreakpoint: number = mobileBreakpoint) {
   const [isClient, setIsClient] = useState(false)
 
   const isMobile = useMediaQuery({
@@ -19,6 +19,10 @@ function useResponsive() {
     minWidth: tabletBreakpoint,
   })
 
+  const isCustom = useMediaQuery({
+    minWidth: customBreakpoint,
+  })
+
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
@@ -27,6 +31,7 @@ function useResponsive() {
     isMobile: isClient ? isMobile : true,
     isTablet: isClient ? isTablet : false,
     isDesktop: isClient ? isDesktop : false,
+    isCustom: isClient && customBreakpoint && isCustom,
   }
 }
 

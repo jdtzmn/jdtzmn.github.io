@@ -25,6 +25,7 @@ const Details = styled.div`
 
 const QuickLinks = styled.div`
   padding-top: 32px;
+  text-align: center;
 
   & > * {
     margin: 1em 0;
@@ -63,11 +64,11 @@ interface StatusProps {
 }
 
 export default function Status({ statusData }: StatusProps) {
-  const { isDesktop } = useResponsive()
+  const { isCustom } = useResponsive(1160)
   return (
     <Page name="Status" header="Status">
       <CenteredHeading>
-        <Fade bottom cascade={isDesktop} distance="56px">
+        <Fade bottom cascade={isCustom} distance="56px">
           {statusData.brief}
         </Fade>
       </CenteredHeading>
@@ -102,8 +103,11 @@ export default function Status({ statusData }: StatusProps) {
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
   let statusData: StatusData = null
   try {
-    const statusEntries = Contentful.getEntries('status', preview)
-    statusData = (await statusEntries).items[0]?.fields as StatusData
+    const statusEntries = await Contentful.getEntries<StatusData>(
+      'status',
+      preview
+    )
+    statusData = statusEntries.items[0]?.fields
   } catch (err) {
     console.error(err)
     throw err
