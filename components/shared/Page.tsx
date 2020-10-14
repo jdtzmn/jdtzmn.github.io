@@ -15,7 +15,7 @@ const FlexGrow = styled.div`
 
 export const CenteredSubtitle = styled(Subtitle)`
   text-align: center;
-  margin: 0.25em 0 2.5em;
+  margin: 2.5em 0 2.5em;
 `
 
 interface PageProps {
@@ -23,6 +23,7 @@ interface PageProps {
   header?: string // label on the page itself
   noContainer?: boolean // whether to not wrap the page content in a container
   animationDelay?: number // the animation delay for the navbar and footer
+  condensed?: boolean // whether the navbar should be condensed. Defaults to true
 }
 
 export default function Page({
@@ -30,6 +31,7 @@ export default function Page({
   header,
   noContainer,
   animationDelay,
+  condensed = true,
   children,
 }: PropsWithChildren<PageProps>) {
   const content = (
@@ -43,7 +45,7 @@ export default function Page({
     <FlexWrapper>
       <FlexGrow>
         <PageTitle breadcrumbs={[name]} />
-        <Navbar animationDelay={animationDelay} />
+        <Navbar animationDelay={animationDelay} condensed={condensed} />
         {noContainer ? content : <Container>{content}</Container>}
       </FlexGrow>
       <Footer />

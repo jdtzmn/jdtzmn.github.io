@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import styled from 'styled-components'
-import { lighten } from 'polished'
+import { lighten, transparentize } from 'polished'
 import Link from 'next/link'
 import { IconContext } from 'react-icons'
 import {
@@ -13,7 +13,7 @@ import {
 import { Collapse } from 'react-collapse'
 import Fade from 'react-reveal/Fade'
 import useResponsive from 'src/hooks/useResponsive'
-import { Container, Button } from 'components/styled'
+import { Container, VerticalAlign, Button } from 'components/styled'
 
 interface NavbarLink {
   text: string
@@ -39,13 +39,27 @@ const navbarLinks: NavbarLink[] = [
   },
 ]
 
-const DesktopNavbarContainer = styled(Container)`
+interface DesktopNavbarContainerProps {
+  condensed: boolean
+}
+
+const DesktopNavbarContainer = styled(Container)<DesktopNavbarContainerProps>`
   display: flex;
   flex-flow: row wrap;
+
+  ${({ theme, condensed }) =>
+    condensed &&
+    `
+    width: 75%;
+    padding: 12px 12.5%;
+    border-bottom: 1px solid
+      ${transparentize(0.9, theme.colors.headers)};
+  `}
 `
 
 interface MobileNavbarContainerProps {
   isOpened: boolean
+  condensed: boolean
 }
 
 const MobileNavbarContainer = styled(Container)<MobileNavbarContainerProps>`
@@ -54,6 +68,13 @@ const MobileNavbarContainer = styled(Container)<MobileNavbarContainerProps>`
   padding: 24px 16px 24px 32px;
   ${({ isOpened, theme }) =>
     isOpened && `background: ${lighten(0.04, theme.colors.background)};`}
+  ${({ condensed, theme }) =>
+    condensed &&
+    `
+      padding: 12px 16px 12px 32px;
+      border-bottom: 1px solid
+        ${transparentize(0.9, theme.colors.headers)};
+    `}
   transition: background 400ms;
   transition-delay: 100ms;
 
@@ -61,6 +82,14 @@ const MobileNavbarContainer = styled(Container)<MobileNavbarContainerProps>`
     /* collapse content */
     flex: 1;
   }
+`
+
+const NameButton = styled(Button)`
+  flex-grow: 0;
+  text-align: left;
+  white-space: nowrap;
+  margin-right: auto;
+  padding: 0;
 `
 
 const LinkButton = styled(Button)`
@@ -83,6 +112,7 @@ const AlignRight = styled.div`
 `
 
 const ResumeButton = styled(Button)`
+  display: inline-block;
   color: ${({ theme }) =>
     theme.light ? theme.colors.primary : theme.colors.gray};
 
@@ -95,14 +125,24 @@ const navbarButtonsAnimationDelay = 75
 
 interface NavbarProps {
   animationDelay?: number
+  condensed?: boolean
 }
 
-export default function Navbar({ animationDelay = 0 }: NavbarProps) {
+export default function Navbar({
+  animationDelay = 0,
+  condensed = false,
+}: NavbarProps) {
   const [open, setOpen] = useState(false)
+  const [visible, setVisible] = useState(false)
   const { isMobile } = useResponsive()
 
   function toggleCollapse() {
     setOpen(!open)
+  }
+
+  function handleCollapseUpdate({ isFullyClosed, contentHeight }) {
+    setVisible(contentHeight > 0)
+    if (isFullyClosed) setVisible(false)
   }
 
   const collapseIcon = open ? <RiCloseFill /> : <RiMenu3Line />
@@ -122,27 +162,44 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
           </Link>
         </Fade>
       ))}
-      <AlignRight>
-        <Fade
-          delay={
-            animationDelay + navbarLinks.length * navbarButtonsAnimationDelay
-          }
-        >
-          <Link href="/api/asset/Jacob Daitzman Resume.pdf" passHref>
-            <ResumeButton kind="gray" as="a" target="_blank">
-              Resume
-            </ResumeButton>
-          </Link>
-        </Fade>
-      </AlignRight>
+      {!condensed && (
+        <AlignRight>
+          <Fade
+            delay={
+              animationDelay + navbarLinks.length * navbarButtonsAnimationDelay
+            }
+          >
+            <Link href="/api/asset/Jacob Daitzman Resume.pdf" passHref>
+              <ResumeButton kind="gray" as="a" target="_blank">
+                Resume
+              </ResumeButton>
+            </Link>
+          </Fade>
+        </AlignRight>
+      )}
     </IconContext.Provider>
   )
 
   return (
     <>
       {isMobile ? (
-        <MobileNavbarContainer isOpened={open}>
-          <Collapse isOpened={open}>{navbarContent}</Collapse>
+        <MobileNavbarContainer isOpened={open} condensed={condensed}>
+          {condensed && !visible && (
+            <Fade delay={animationDelay + 100} duration={400}>
+              <VerticalAlign style={{ height: '100%' }}>
+                <Link href="/" passHref>
+                  <NameButton kind="text">Jacob Daitzman</NameButton>
+                </Link>
+              </VerticalAlign>
+            </Fade>
+          )}
+          <Collapse
+            isOpened={open}
+            onWork={handleCollapseUpdate}
+            onRest={handleCollapseUpdate}
+          >
+            {navbarContent}
+          </Collapse>
           <Fade delay={animationDelay}>
             <Button kind="text" onClick={toggleCollapse}>
               <IconContext.Provider value={{ size: '1.5em' }}>
@@ -152,7 +209,9 @@ export default function Navbar({ animationDelay = 0 }: NavbarProps) {
           </Fade>
         </MobileNavbarContainer>
       ) : (
-        <DesktopNavbarContainer>{navbarContent}</DesktopNavbarContainer>
+        <DesktopNavbarContainer condensed={condensed}>
+          {navbarContent}
+        </DesktopNavbarContainer>
       )}
     </>
   )
