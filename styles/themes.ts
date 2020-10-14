@@ -3,8 +3,8 @@ import { getLuminance, invert } from 'polished'
 // Breakpoints
 
 export const breakpoints = {
-  mobile: 576, // px
-  tablet: 780, // px
+  mobile: 767.5, // px
+  tablet: 991.5, // px
 }
 
 // Themes
