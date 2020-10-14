@@ -5,6 +5,8 @@ function determineRedirectURL(
   slug: string
 ): string | undefined {
   switch (contentType) {
+    case 'project':
+      return `/project/${slug}`
     case 'status':
       return '/status'
     case 'homepage':

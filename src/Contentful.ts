@@ -29,8 +29,8 @@ export default class Contentful {
     return client
   }
 
-  static async getEntries(contentType: string, preview: boolean, query = {}) {
-    return await Contentful.createClient(preview).getEntries({
+  static async getEntries<T>(contentType: string, preview = false, query = {}) {
+    return await Contentful.createClient(preview).getEntries<T>({
       content_type: contentType,
       ...query,
     })
