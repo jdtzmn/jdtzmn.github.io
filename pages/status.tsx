@@ -12,6 +12,7 @@ import {
 import Contentful from 'src/Contentful'
 import useResponsive from 'src/hooks/useResponsive'
 import { Heading, Button } from 'components/styled'
+import ContactIfError from 'components/shared/ContactIfError'
 
 const CenteredHeading = styled(Heading)`
   color: ${({ theme }) => lighten(0.05, theme.colors.gray)};
@@ -81,6 +82,7 @@ export default function Status({ statusData }: StatusProps) {
           )}
         </Details>
       </Fade>
+      <ContactIfError />
       <hr />
       <QuickLinks>
         <Fade>
