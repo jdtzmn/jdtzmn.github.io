@@ -103,17 +103,11 @@ export default function Status({ statusData }: StatusProps) {
 }
 
 export async function getStaticProps({ preview }: GetStaticPropsContext) {
-  let statusData: StatusData = null
-  try {
-    const statusEntries = await Contentful.getEntries<StatusData>(
-      'status',
-      preview
-    )
-    statusData = statusEntries.items[0]?.fields
-  } catch (err) {
-    console.error(err)
-    throw err
-  }
+  const statusEntries = await Contentful.getEntries<StatusData>(
+    'status',
+    preview
+  )
+  const statusData = statusEntries.items[0]?.fields
 
   return {
     props: {

@@ -7,14 +7,14 @@ import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
 import ContentNotFound from 'components/shared/ContentNotFound'
-import { Container, Heading, Subtitle, ImagePreview } from 'components/styled'
+import {
+  Heading,
+  Subtitle,
+  ImagePreview,
+  ReadingInset,
+} from 'components/styled'
 import ContactIfError from 'components/shared/ContactIfError'
 import { Asset } from 'contentful'
-
-const ReadingInset = styled(Container)`
-  max-width: 800px;
-  padding: 0;
-`
 
 const PageIndicator = styled.p`
   color: ${({ theme }) => theme.colors.primary};
@@ -55,9 +55,10 @@ const PaddedHr = styled.hr`
   margin: 1.25em 0 2em;
 `
 
-interface ProjectData {
+export interface ProjectData {
   cover: Asset
   name: string
+  description?: string
   date?: string
   slug: string
   synopsis: Document
