@@ -141,7 +141,13 @@ export default function Projects({ projectsData }: ProjectsProps) {
 
   return (
     <Page name="Projects" header="Projects">
-      <ProjectsContainer>{projects}</ProjectsContainer>
+      {projects.length > 0 ? (
+        <ProjectsContainer>{projects}</ProjectsContainer>
+      ) : (
+        <p style={{ textAlign: 'center' }}>
+          No projects here yet! <br /> Come back later once I've written some.
+        </p>
+      )}
     </Page>
   )
 }
