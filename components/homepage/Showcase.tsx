@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
+import { lighten, darken } from 'polished'
 import Fade from 'react-reveal/Fade'
 import { File } from 'src/Contentful'
 import { Document } from '@contentful/rich-text-types'
@@ -11,6 +13,7 @@ import {
   Subtitle,
 } from 'components/styled'
 import useResponsive from 'src/hooks/useResponsive'
+import { ProjectData } from 'pages/project/[projectSlug]'
 
 export interface ShowcaseData {
   image: {
@@ -23,6 +26,10 @@ export interface ShowcaseData {
   roundCorners: boolean
   name: string
   summary: Document
+  project?: {
+    fields: ProjectData
+    sys: any
+  }
   order: number
 }
 
@@ -34,6 +41,20 @@ const FlexRow = styled.div<FlexRowProps>`
   display: flex;
   padding-${({ isOddRow }) => (isOddRow ? 'left' : 'right')}: 12.5%;
   overflow-x: hidden;
+`
+
+const ClickySubtitle = styled(Subtitle).attrs({
+  as: 'a',
+})`
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: ${({ theme }) =>
+      theme.light
+        ? lighten(0.25, theme.colors.headers)
+        : darken(0.2, theme.colors.headers)};
+  }
 `
 
 const ShowcaseInfo = styled(VerticalAlign)`
@@ -60,6 +81,25 @@ const Hr = styled.hr`
   margin-top: 64px;
 `
 
+interface ShowcaseTitleProps {
+  showcaseData: ShowcaseData
+}
+
+function ShowcaseTitle({ showcaseData }: ShowcaseTitleProps) {
+  const { project } = showcaseData
+  if (typeof project === 'undefined') {
+    return <Subtitle>{showcaseData.name}</Subtitle>
+  }
+
+  const projectURL = `/project/${showcaseData.project.fields.slug}`
+
+  return (
+    <Link href={projectURL} passHref>
+      <ClickySubtitle>{showcaseData.name}</ClickySubtitle>
+    </Link>
+  )
+}
+
 /**
  * The number of milliseconds to wait after the information is revealed before showing the preview
  */
@@ -80,7 +120,7 @@ function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
     <Container>
       <Fade bottom distance="48px" duration={500}>
         <div>
-          <Subtitle>{item.name}</Subtitle>
+          <ShowcaseTitle showcaseData={item} />
           <Preview
             styleImage={item.roundCorners}
             src={imageFile.url}
@@ -121,7 +161,7 @@ function ShowcaseDesktopItem({
         onReveal={onInfoRevealed}
       >
         <div>
-          <Subtitle>{item.name}</Subtitle>
+          <ShowcaseTitle showcaseData={item} />
           {documentToReactComponents(item.summary)}
         </div>
       </Fade>
@@ -168,7 +208,7 @@ export default function Showcase({ items, animationDelay = 0 }: ShowcaseProps) {
       {!isDesktop &&
         items
           .sort(byOrder)
-          .map((item, index) => (
+          .map((item) => (
             <ShowcaseTabletItem item={item} key={item.name + '-tablet'} />
           ))}
       {isDesktop &&
