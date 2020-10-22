@@ -6,6 +6,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
 import useResponsive from 'src/hooks/useResponsive'
+import useWordCount, { calculateWordCount } from 'src/hooks/useWordCount'
 import { Subtitle, Button } from 'components/styled'
 import {
   Form,
@@ -17,6 +18,8 @@ import {
 import Page from 'components/shared/Page'
 import { guardEnv } from 'src/utils'
 import { theme } from './_app'
+
+const MAX_WORD_COUNT = 400
 
 declare global {
   interface Window {
@@ -42,6 +45,7 @@ export default function Contact() {
 
   const router = useRouter()
   const { isTablet } = useResponsive()
+  const [count, handleChange] = useWordCount()
 
   const { register, handleSubmit, setValue, errors } = useForm<FormData>()
   const onSubmit = handleSubmit(async ({ name, email, message, captcha }) => {
@@ -78,7 +82,7 @@ export default function Contact() {
     register(
       { name: 'captcha' },
       {
-        required: 'Please prove you are a human.',
+        required: 'Please prove you are a human',
       }
     )
   })
@@ -151,17 +155,25 @@ export default function Contact() {
           prompt="What's your message?"
           required
           nextShortcut={commandEnterShortcut}
-          helpText="Maximum of 1500 characters"
+          helpText={
+            MAX_WORD_COUNT - count >= 0
+              ? `${MAX_WORD_COUNT - count} words remaining.`
+              : `${
+                  count - MAX_WORD_COUNT
+                } words too many. Please cut down your message to ${MAX_WORD_COUNT} words before submitting.`
+          }
           error={errors.message}
         >
           <LongAnswer
             name="message"
             placeholder="Type your message here..."
+            onChange={handleChange}
             ref={register({
               required: 'Message is required',
-              maxLength: {
-                value: 1500,
-                message: '1500 characters or less please',
+              validate: {
+                wordCount: (value) =>
+                  calculateWordCount(value) < MAX_WORD_COUNT ||
+                  'Word count exceeded',
               },
             })}
           />
