@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
+import ReCAPTCHA from 'react-google-recaptcha'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
 import useResponsive from 'src/hooks/useResponsive'
@@ -14,6 +16,13 @@ import {
 } from 'components/form'
 import Page from 'components/shared/Page'
 import { guardEnv } from 'src/utils'
+import { theme } from './_app'
+
+declare global {
+  interface Window {
+    grecaptcha: any
+  }
+}
 
 const CenteredText = styled.div`
   text-align: center;
@@ -23,6 +32,7 @@ interface FormData {
   name: string
   email: string
   message: string
+  captcha: string
 }
 
 export default function Contact() {
@@ -30,16 +40,22 @@ export default function Contact() {
   const [formError, setFormError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
+  const router = useRouter()
   const { isTablet } = useResponsive()
 
-  const { register, handleSubmit, errors } = useForm<FormData>()
-  const onSubmit = handleSubmit(async ({ name, email, message }) => {
+  const { register, handleSubmit, setValue, errors } = useForm<FormData>()
+  const onSubmit = handleSubmit(async ({ name, email, message, captcha }) => {
     setSubmitting(true)
+
+    const { from } = router.query
+
     try {
       await axios.post('/api/contact', {
         name,
         email,
         message,
+        captcha,
+        from,
       })
       setSuccess(true)
     } catch (err) {
@@ -57,6 +73,20 @@ export default function Contact() {
     }
   })
 
+  // register recaptcha with react-hook-form
+  useEffect(() => {
+    register(
+      { name: 'captcha' },
+      {
+        required: 'Please prove you are a human.',
+      }
+    )
+  })
+
+  function handleRecaptchaToken(token: string) {
+    setValue('captcha', token)
+  }
+
   const successMessage = (
     <Fade>
       <CenteredText>
@@ -71,12 +101,16 @@ export default function Contact() {
     process.env.NEXT_PUBLIC_CONTACT_EMAIL
   )
 
+  const mailtoHref =
+    router.query.from && !Array.isArray(router.query.from)
+      ? `mailto:${contactEmail}?subject=I found an issue on the ${router.query.from} page`
+      : `mailto:${contactEmail}`
+
   const form = (
     <>
       <p>
-        Send me an email at{' '}
-        <a href={`mailto:${contactEmail}`}>{contactEmail}</a> or submit the
-        following form:
+        Send me an email at <a href={mailtoHref}>{contactEmail}</a> or submit
+        the following form:
       </p>
       <br />
       <Form disableAutoscroll={!isTablet} onSubmit={onSubmit}>
@@ -130,6 +164,16 @@ export default function Contact() {
                 message: '1500 characters or less please',
               },
             })}
+          />
+        </Block>
+        <Block error={errors.captcha}>
+          <ReCAPTCHA
+            sitekey={guardEnv(
+              'NEXT_PUBLIC_RECAPTCHA_SITE_KEY',
+              process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+            )}
+            theme={theme.light ? 'light' : 'dark'}
+            onChange={handleRecaptchaToken}
           />
         </Block>
         <Block error={formError}>
