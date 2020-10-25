@@ -1,9 +1,9 @@
 import { GetStaticPropsContext } from 'next'
-import Link from 'next/link'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import Fade from 'react-reveal/Fade'
-import Page from 'components/shared/Page'
+import { Page, QuickLinks } from 'components/shared'
+import { QuickLinkInfo } from 'components/shared/QuickLinks'
 import { Document } from '@contentful/rich-text-types'
 import {
   documentToReactComponents,
@@ -11,7 +11,7 @@ import {
 } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
 import useResponsive from 'src/hooks/useResponsive'
-import { Heading, Button } from 'components/styled'
+import { Heading } from 'components/styled'
 import ContactIfError from 'components/shared/ContactIfError'
 
 const CenteredHeading = styled(Heading)`
@@ -24,27 +24,6 @@ const Details = styled.div`
   margin-top: 3em;
 `
 
-const QuickLinks = styled.div`
-  padding-top: 32px;
-  text-align: center;
-
-  & > * {
-    margin: 1em 0;
-    width: 100%;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobile}px) {
-    display: flex;
-    justify-content: center;
-    padding: 3em 0 2em;
-
-    & > * {
-      margin: 1em;
-      width: auto;
-    }
-  }
-`
-
 const documentRendererOptions: Options = {
   renderText: (text) => {
     // replace new lines with break elements
@@ -53,6 +32,19 @@ const documentRendererOptions: Options = {
     }, [])
   },
 }
+
+// several links to put at the bottom of the status page
+const statusQuickLinks: QuickLinkInfo[] = [
+  {
+    text: 'View Projects',
+    href: '/projects',
+    kind: 'gray',
+  },
+  {
+    text: 'Get in Touch',
+    href: '/contact',
+  },
+]
 
 interface StatusData {
   brief: string
@@ -84,20 +76,7 @@ export default function Status({ statusData }: StatusProps) {
       </Fade>
       <ContactIfError />
       <hr />
-      <QuickLinks>
-        <Fade>
-          <Link href="/projects" passHref>
-            <Button kind="gray" as="a">
-              View Projects
-            </Button>
-          </Link>
-        </Fade>
-        <Fade delay={100}>
-          <Link href="/contact" passHref>
-            <Button as="a">Get in Touch</Button>
-          </Link>
-        </Fade>
-      </QuickLinks>
+      <QuickLinks links={statusQuickLinks} />
     </Page>
   )
 }

@@ -1,12 +1,20 @@
 import { GetStaticPropsContext } from 'next'
+import Link from 'next/link'
 import styled from 'styled-components'
 import { lighten } from 'polished'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Tada from 'react-reveal/Tada'
 import Fade from 'react-reveal/Fade'
-import { PageTitle, Navbar, Footer } from 'components/shared'
-import { VerticalAlign, Container, Title, Subtitle } from 'components/styled'
+import { PageTitle, Navbar, Footer, QuickLinks } from 'components/shared'
+import { QuickLinkInfo } from 'components/shared/QuickLinks'
+import {
+  VerticalAlign,
+  Container,
+  Title,
+  Subtitle,
+  Button,
+} from 'components/styled'
 import BoxArtwork from 'components/homepage/BoxArtwork'
 import Showcase, { ShowcaseData } from 'components/homepage/Showcase'
 import Contentful from 'src/Contentful'
@@ -34,6 +42,7 @@ const FlexContainer = styled(Container)`
 
 const Introduction = styled.div`
   flex: 3;
+  margin-bottom: 1em;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     padding-right: 96px;
@@ -52,6 +61,35 @@ const TitleWithoutPadding = styled(Title)`
 const BlurbSubtitle = styled(Subtitle)`
   margin-top: 5px;
 `
+
+const PaddedButton = styled(Button).attrs({
+  as: 'a',
+})`
+  display: inline-block;
+  margin-top: 3em;
+`
+
+const QuickLinksContainer = styled(Container)`
+  padding-top: 0;
+  padding-bottom: 2em;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobile}px) {
+    padding-top: 2em;
+    padding-bottom: 4em;
+  }
+`
+
+const homepageQuickLinks: QuickLinkInfo[] = [
+  {
+    href: '/status',
+    text: 'Learn more about me',
+    kind: 'gray',
+  },
+  {
+    href: '/projects',
+    text: 'View my other projects',
+  },
+]
 
 interface HomepageData {
   callToAction: string
@@ -88,6 +126,13 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
               <Fade bottom cascade delay={1000} distance="32px">
                 <div>{documentToReactComponents(homepageData.blurb)}</div>
               </Fade>
+              <Fade bottom delay={1300} distance="32px">
+                <Link href="/contact" passHref>
+                  <a>
+                    <PaddedButton>Get in Touch</PaddedButton>
+                  </a>
+                </Link>
+              </Fade>
             </Introduction>
             <Artwork>
               <Fade delay={1800}>
@@ -98,6 +143,9 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
         </ResponsiveVerticalAlign>
       </AboveFoldGradient>
       <Showcase items={showcaseData} animationDelay={2000} />
+      <QuickLinksContainer>
+        <QuickLinks links={homepageQuickLinks} />
+      </QuickLinksContainer>
       <Footer />
     </>
   )
