@@ -54,10 +54,23 @@ interface StatusData {
 
 interface StatusProps {
   statusData: StatusData
+  updatedAt: string // date string
 }
 
-export default function Status({ statusData }: StatusProps) {
+export default function Status({ statusData, updatedAt }: StatusProps) {
   const { isCustom } = useResponsive(1160)
+
+  const dateLocaleOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+
+  const lastUpdated = new Date(updatedAt).toLocaleDateString(
+    undefined,
+    dateLocaleOptions
+  )
+
   return (
     <Page name="Status" header="Status">
       <CenteredHeading>
@@ -74,6 +87,7 @@ export default function Status({ statusData }: StatusProps) {
           )}
         </Details>
       </Fade>
+      <sub>Last updated {lastUpdated}.</sub>
       <ContactIfError />
       <hr />
       <QuickLinks links={statusQuickLinks} />
@@ -87,11 +101,13 @@ export async function getStaticProps({ preview }: GetStaticPropsContext) {
     preview
   )
   const statusData = statusEntries.items[0]?.fields
+  const updatedAt = statusEntries.items[0]?.sys.updatedAt
 
   return {
     props: {
       preview: preview || null,
       statusData: statusData || null,
+      updatedAt: updatedAt || null,
     },
     revalidate: 60,
   }
