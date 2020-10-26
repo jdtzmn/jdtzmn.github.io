@@ -1,3 +1,4 @@
+import qs from 'querystring'
 import { NextApiRequest, NextApiResponse } from 'next'
 import sgMail from '@sendgrid/mail'
 import stripHtml from 'string-strip-html'
@@ -69,14 +70,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // verify captcha
-  const verifyUrl = 'https://www.google.com/recaptcha/api/siteverify'
+  const verifyUrl = 'https://hcaptcha.com/siteverify'
   try {
-    const response = await axios.post(verifyUrl, null, {
-      params: {
-        secret: guardEnv('RECAPTCHA_SECRET_KEY'),
-        response: captcha,
+    const requestBody = {
+      secret: guardEnv('HCAPTCHA_SECRET_KEY'),
+      response: captcha,
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-    })
+    }
+
+    const response = await axios.post(
+      verifyUrl,
+      qs.stringify(requestBody),
+      config
+    )
     if (!response.data.success) {
       console.error(response.data)
       return res.status(400).end()

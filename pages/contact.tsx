@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
-import ReCAPTCHA from 'react-google-recaptcha'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
 import useResponsive from 'src/hooks/useResponsive'
@@ -18,6 +18,13 @@ import {
 import Page from 'components/shared/Page'
 import { guardEnv } from 'src/utils'
 import { theme } from './_app'
+
+const HCaptchaWithNoSSR = dynamic(
+  async () => await import('@hcaptcha/react-hcaptcha'),
+  {
+    ssr: false,
+  }
+)
 
 const MAX_WORD_COUNT = 400
 
@@ -87,7 +94,7 @@ export default function Contact() {
     )
   })
 
-  function handleRecaptchaToken(token: string) {
+  function handleHCaptchaToken(token: string) {
     setValue('captcha', token)
   }
 
@@ -179,13 +186,13 @@ export default function Contact() {
           />
         </Block>
         <Block error={errors.captcha}>
-          <ReCAPTCHA
+          <HCaptchaWithNoSSR
             sitekey={guardEnv(
-              'NEXT_PUBLIC_RECAPTCHA_SITE_KEY',
-              process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+              'NEXT_PUBLIC_HCAPTCHA_SITE_KEY',
+              process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY
             )}
             theme={theme.light ? 'light' : 'dark'}
-            onChange={handleRecaptchaToken}
+            onVerify={handleHCaptchaToken}
           />
         </Block>
         <Block error={formError}>
