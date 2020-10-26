@@ -79,7 +79,7 @@ export default function Project({ projectData }: ProjectProps) {
   const progressiveCoverUrl = cover && cover.file.url + '?fm=jpg&fl=progressive'
 
   return (
-    <Page name={projectData.name}>
+    <Page name={projectData.name} image={progressiveCoverUrl} type="article">
       <ReadingInset>
         <PageIndicator>Project</PageIndicator>
         <ProjectName>{projectData.name}</ProjectName>

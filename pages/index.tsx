@@ -1,4 +1,5 @@
 import { GetStaticPropsContext } from 'next'
+import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { lighten } from 'polished'
@@ -94,6 +95,7 @@ const homepageQuickLinks: QuickLinkInfo[] = [
 interface HomepageData {
   callToAction: string
   blurb: Document
+  keywords: string
 }
 
 interface IndexProps {
@@ -104,6 +106,13 @@ interface IndexProps {
 export default function Index({ showcaseData, homepageData }: IndexProps) {
   return (
     <>
+      <Head>
+        <meta
+          name="description"
+          content="I’m a primarily self-taught software engineer who started programming in second grade. Learn more about me and my projects on this portfolio website."
+        />
+        <meta name="keywords" content={homepageData.keywords} />
+      </Head>
       <PageTitle />
       <AboveFoldGradient>
         <Navbar />
@@ -128,9 +137,7 @@ export default function Index({ showcaseData, homepageData }: IndexProps) {
               </Fade>
               <Fade bottom delay={1300} distance="32px">
                 <Link href="/contact" passHref>
-                  <a>
-                    <PaddedButton>Get in Touch</PaddedButton>
-                  </a>
+                  <PaddedButton>Get in Touch</PaddedButton>
                 </Link>
               </Fade>
             </Introduction>

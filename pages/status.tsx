@@ -72,7 +72,7 @@ export default function Status({ statusData, updatedAt }: StatusProps) {
   )
 
   return (
-    <Page name="Status" header="Status">
+    <Page name="Status" header="Status" type="article">
       <CenteredHeading>
         <Fade bottom cascade={isCustom} distance="56px">
           {statusData.brief}
