@@ -11,10 +11,12 @@ export const theme = defaultTheme
 export default function App({ Component, pageProps }) {
   const router = useRouter()
 
-  const siteUrl = guardEnv(
+  const siteURL = guardEnv(
     'NEXT_PUBLIC_SITE_URL',
     process.env.NEXT_PUBLIC_SITE_URL
   )
+
+  const contentURL = new URL(router.pathname, siteURL)
 
   return (
     <>
@@ -29,7 +31,13 @@ export default function App({ Component, pageProps }) {
         <meta name="og:site_name" content="Jacob Daitzman" />
         <meta name="og:type" content="website" />
         <meta name="og:title" content="Jacob Daitzman" />
-        <meta name="og:url" content={siteUrl + router.pathname} />
+        <meta name="og:url" content={contentURL.toString()} />
+        <script
+          async
+          defer
+          data-domain={contentURL.hostname}
+          src="https://plausible.io/js/plausible.js"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <PreviewBanner isPreview={pageProps.preview} />
