@@ -6,7 +6,7 @@ import Page from 'components/shared/Page'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
-import ContentNotFound from 'components/shared/ContentNotFound'
+import ContentNotFound from 'pages/404'
 import {
   Heading,
   Subtitle,
