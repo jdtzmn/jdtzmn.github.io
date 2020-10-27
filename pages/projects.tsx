@@ -104,8 +104,6 @@ export default function Projects({ projectsData }: ProjectsProps) {
     const baseDelay = index * projectFadeInDelay
 
     const cover = projectData.cover?.fields
-    const progressiveCoverUrl =
-      cover && cover.file.url + '?fm=jpg&fl=progressive'
 
     return (
       <Link href={`/project/${slug}`} passHref key={slug}>
@@ -115,7 +113,12 @@ export default function Projects({ projectsData }: ProjectsProps) {
               <VerticalAlign style={{ height: '100%' }}>
                 <Fade delay={baseDelay + 100}>
                   {cover ? (
-                    <Cover src={progressiveCoverUrl} />
+                    <Cover
+                      src={cover.file.url}
+                      aria-hidden
+                      width={cover.file.details.image.width}
+                      height={cover.file.details.image.height}
+                    />
                   ) : (
                     !isMobile && <ColorTile slug={slug} />
                   )}

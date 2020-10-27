@@ -1,11 +1,14 @@
-import { ComponentPropsWithoutRef } from 'react'
+import Image from 'next/image'
 import styled from 'styled-components'
+import { addHttpsIfNecessary } from 'src/utils'
 
-interface ImagePreviewProps extends ComponentPropsWithoutRef<'img'> {
+interface ImagePreviewProps {
   styleImage?: boolean
 }
 
-const ImagePreview = styled.img<ImagePreviewProps>`
+const ImagePreview = styled(Image).attrs(({ src }) => ({
+  src: addHttpsIfNecessary(src), // fix `//domain.com` urls
+}))<ImagePreviewProps>`
   display: block;
   width: 100%;
 

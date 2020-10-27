@@ -121,11 +121,14 @@ function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
       <Fade bottom distance="48px" duration={500}>
         <div>
           <ShowcaseTitle showcaseData={item} />
-          <Preview
-            styleImage={item.roundCorners}
-            src={imageFile.url}
-            alt={imageFile.title}
-          />
+          <div>
+            <Preview
+              styleImage={item.roundCorners}
+              src={imageFile.url}
+              alt={imageFile.title}
+              unsized
+            />
+          </div>
           {documentToReactComponents(item.summary)}
         </div>
       </Fade>
@@ -175,11 +178,14 @@ function ShowcaseDesktopItem({
         duration={800}
         when={infoRevealed}
       >
-        <Preview
-          styleImage={item.roundCorners}
-          src={imageFile.url}
-          alt={imageFile.title}
-        />
+        <div>
+          <Preview
+            styleImage={item.roundCorners}
+            src={imageFile.url}
+            alt={imageFile.title}
+            unsized
+          />
+        </div>
       </Fade>
     </ShowcasePreview>,
   ]

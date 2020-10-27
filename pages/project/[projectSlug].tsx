@@ -37,18 +37,21 @@ const ProjectDate = styled(Subtitle)`
   margin-bottom: 0.4em;
 `
 
-const Cover = styled(ImagePreview)`
-  display: block;
-  width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 5px 30px
-    ${({ theme }) => transparentize(0.8, theme.colors.black)};
+const CoverContainer = styled.div`
   margin: 3em 0;
 
   @media screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet + 1}px) {
     margin: 3.5em 0;
   }
+`
+
+const Cover = styled(ImagePreview)`
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 5px 30px
+    ${({ theme }) => transparentize(0.8, theme.colors.black)};
 `
 
 const PaddedHr = styled.hr`
@@ -76,16 +79,24 @@ export default function Project({ projectData }: ProjectProps) {
   }
 
   const cover = projectData.cover?.fields
-  const progressiveCoverUrl = cover && cover.file.url + '?fm=jpg&fl=progressive'
 
   return (
-    <Page name={projectData.name} image={progressiveCoverUrl} type="article">
+    <Page name={projectData.name} image={cover.file.url} type="article">
       <ReadingInset>
         <PageIndicator>Project</PageIndicator>
         <ProjectName>{projectData.name}</ProjectName>
         {projectData.date && <ProjectDate>{projectData.date}</ProjectDate>}
         {cover ? (
-          <Cover styleImage src={progressiveCoverUrl} alt={cover.title} />
+          <CoverContainer>
+            <Cover
+              styleImage
+              src={cover.file.url}
+              alt={`${cover.title} Cover Image`}
+              width={cover.file.details.image.width}
+              height={cover.file.details.image.height}
+              priority
+            />
+          </CoverContainer>
         ) : (
           <PaddedHr />
         )}
