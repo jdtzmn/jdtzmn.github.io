@@ -6,6 +6,7 @@ import Page from 'components/shared/Page'
 import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
+import richTextConversionOptions from 'src/richTextConversionOptions'
 import ContentNotFound from 'pages/404'
 import {
   Heading,
@@ -58,6 +59,10 @@ const PaddedHr = styled.hr`
   margin: 1.25em 0 2em;
 `
 
+const ProjectContent = styled.div`
+  line-height: 1.6em;
+`
+
 export interface ProjectData {
   cover: Asset
   name: string
@@ -81,7 +86,7 @@ export default function Project({ projectData }: ProjectProps) {
   const cover = projectData.cover?.fields
 
   return (
-    <Page name={projectData.name} image={cover.file.url} type="article">
+    <Page name={projectData.name} image={cover?.file.url} type="article">
       <ReadingInset>
         <PageIndicator>Project</PageIndicator>
         <ProjectName>{projectData.name}</ProjectName>
@@ -100,7 +105,12 @@ export default function Project({ projectData }: ProjectProps) {
         ) : (
           <PaddedHr />
         )}
-        {documentToReactComponents(projectData.synopsis)}
+        <ProjectContent>
+          {documentToReactComponents(
+            projectData.synopsis,
+            richTextConversionOptions
+          )}
+        </ProjectContent>
         <hr />
         <ContactIfError />
       </ReadingInset>

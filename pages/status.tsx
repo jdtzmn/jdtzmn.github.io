@@ -5,11 +5,9 @@ import Fade from 'react-reveal/Fade'
 import { Page, QuickLinks } from 'components/shared'
 import { QuickLinkInfo } from 'components/shared/QuickLinks'
 import { Document } from '@contentful/rich-text-types'
-import {
-  documentToReactComponents,
-  Options,
-} from '@contentful/rich-text-react-renderer'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
+import richTextConversionOptions from 'src/richTextConversionOptions'
 import useResponsive from 'src/hooks/useResponsive'
 import { Heading } from 'components/styled'
 import ContactIfError from 'components/shared/ContactIfError'
@@ -23,15 +21,6 @@ const CenteredHeading = styled(Heading)`
 const Details = styled.div`
   margin-top: 3em;
 `
-
-const documentRendererOptions: Options = {
-  renderText: (text) => {
-    // replace new lines with break elements
-    return text.split('\n').reduce((children, textSegment, index) => {
-      return [...children, index > 0 && <br key={index} />, textSegment]
-    }, [])
-  },
-}
 
 // several links to put at the bottom of the status page
 const statusQuickLinks: QuickLinkInfo[] = [
@@ -83,7 +72,7 @@ export default function Status({ statusData, updatedAt }: StatusProps) {
         <Details>
           {documentToReactComponents(
             statusData.details,
-            documentRendererOptions
+            richTextConversionOptions
           )}
         </Details>
       </Fade>

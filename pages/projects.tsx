@@ -58,13 +58,9 @@ const Cover = styled(ImagePreview)`
   box-shadow: 0 5px 5px
     ${({ theme }) => transparentize(0.8, theme.colors.black)};
   border-radius: 16px;
-  margin-bottom: 2em;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobile}px) {
-    width: 100%;
-    max-height: 140px;
     object-fit: cover;
-    margin-bottom: 0;
   }
 `
 
@@ -87,6 +83,11 @@ const Name = styled(Subtitle)`
   font-weight: 500;
   text-decoration: none;
   margin: 0.2em 0;
+  margin-top: 1em;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobile}px) {
+    margin-top: 0.2em;
+  }
 `
 
 const projectFadeInDelay = 150 // delay in ms between revealing each project
