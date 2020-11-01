@@ -59,6 +59,11 @@ const PaddedHr = styled.hr`
 
 const ProjectContent = styled.div`
   line-height: 1.6em;
+
+  & > * {
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+  }
 `
 
 export interface ProjectData {
