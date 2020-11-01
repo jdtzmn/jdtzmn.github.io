@@ -1,5 +1,4 @@
 import { GetStaticPathsResult, GetStaticPropsContext } from 'next'
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { transparentize } from 'polished'
 import Page from 'components/shared/Page'
@@ -7,7 +6,6 @@ import { Document } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Contentful from 'src/Contentful'
 import richTextConversionOptions from 'src/richTextConversionOptions'
-import ContentNotFound from 'pages/404'
 import {
   Heading,
   Subtitle,
@@ -77,12 +75,6 @@ interface ProjectProps {
 }
 
 export default function Project({ projectData }: ProjectProps) {
-  const router = useRouter()
-
-  if (!projectData || router.isFallback) {
-    return <ContentNotFound />
-  }
-
   const cover = projectData.cover?.fields
 
   return (
@@ -132,6 +124,7 @@ export async function getStaticProps({
   const projectData = projectEntries.items[0]?.fields
 
   return {
+    notFound: projectEntries.total === 0,
     props: {
       preview: preview || null,
       projectData: projectData || null,
@@ -149,5 +142,5 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
     }
   })
 
-  return { paths, fallback: true }
+  return { paths, fallback: 'blocking' }
 }
