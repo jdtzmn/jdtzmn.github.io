@@ -66,7 +66,7 @@ export default function Page({
         {image ? (
           <meta name="og:image" content={image} />
         ) : (
-          <meta name="og:image" content={siteUrl + '/favicon.ico'} />
+          <meta name="og:image" content={siteUrl + '/favicon.png'} />
         )}
         {description && (
           <>
