@@ -54,8 +54,8 @@ export default function Page({
   )
 
   const siteUrl = guardEnv(
-    'NEXT_PUBLIC_SITE_URL',
-    process.env.NEXT_PUBLIC_SITE_URL
+    'NEXT_PUBLIC_SITE_URL or VERCEL_URL',
+    process.env.NEXT_PUBLIC_SITE_URL || `https://${process.env.VERCEL_URL}`
   )
 
   return (

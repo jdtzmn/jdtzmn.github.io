@@ -12,8 +12,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   const siteURL = guardEnv(
-    'NEXT_PUBLIC_SITE_URL',
-    process.env.NEXT_PUBLIC_SITE_URL
+    'NEXT_PUBLIC_SITE_URL or VERCEL_URL',
+    process.env.NEXT_PUBLIC_SITE_URL || `https://${process.env.VERCEL_URL}`
   )
 
   const contentURL = new URL(router.pathname, siteURL)
