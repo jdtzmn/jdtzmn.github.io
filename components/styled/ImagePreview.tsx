@@ -4,6 +4,7 @@ import { addHttpsIfNecessary } from 'src/utils'
 
 interface ImagePreviewProps {
   styleImage?: boolean
+  layout?: string
 }
 
 const ImagePreview = styled(Image).attrs(({ src }) => ({
