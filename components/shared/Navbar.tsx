@@ -169,7 +169,7 @@ export default function Navbar({
               animationDelay + navbarLinks.length * navbarButtonsAnimationDelay
             }
           >
-            <Link href="/api/asset/Jacob Daitzman Resume.pdf" passHref>
+            <Link href="/resume" passHref>
               <ResumeButton kind="gray" as="a" target="_blank">
                 Resume
               </ResumeButton>
