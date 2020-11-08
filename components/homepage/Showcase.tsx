@@ -125,7 +125,7 @@ function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
             styleImage={item.roundCorners}
             src={imageFile.url}
             alt={imageFile.title}
-            unsized
+            layout="fill"
             loading="eager"
           />
           {documentToReactComponents(item.summary)}
@@ -181,7 +181,7 @@ function ShowcaseDesktopItem({
           styleImage={item.roundCorners}
           src={imageFile.url}
           alt={imageFile.title}
-          unsized
+          layout="fill"
           loading="eager"
         />
       </Fade>
