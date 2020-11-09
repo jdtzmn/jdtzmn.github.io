@@ -10,6 +10,7 @@ import {
   Heading,
   Subtitle,
   ImagePreview,
+  ImagePreviewContainer,
   ReadingInset,
 } from 'components/styled'
 import ContactIfError from 'components/shared/ContactIfError'
@@ -36,7 +37,7 @@ const ProjectDate = styled(Subtitle)`
   margin-bottom: 0.4em;
 `
 
-const CoverContainer = styled.div`
+const CoverContainer = styled(ImagePreviewContainer)`
   margin: 3em 0;
 
   @media screen and (min-width: ${({ theme }) =>

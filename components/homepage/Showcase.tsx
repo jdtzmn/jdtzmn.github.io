@@ -9,6 +9,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import {
   Container,
   ImagePreview,
+  ImagePreviewContainer,
   VerticalAlign,
   Subtitle,
 } from 'components/styled'
@@ -66,14 +67,12 @@ const ShowcasePreview = styled(VerticalAlign)`
   padding: 5%;
 `
 
-const Preview = styled(ImagePreview)`
-  max-width: 80%;
-  max-height: 800px;
-  width: auto;
-  margin: 0 auto;
+const PreviewContainer = styled(ImagePreviewContainer)`
+  max-width: 75%;
+  margin: 2em auto 2em;
 
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}px) {
-    margin: ${({ styleImage }) => (styleImage ? '64px' : '')} auto;
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
+    margin: 0 auto;
   }
 `
 
@@ -121,13 +120,16 @@ function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
       <Fade bottom distance="48px" duration={500}>
         <div>
           <ShowcaseTitle showcaseData={item} />
-          <Preview
-            styleImage={item.roundCorners}
-            src={imageFile.url}
-            alt={imageFile.title}
-            layout="fill"
-            loading="eager"
-          />
+          <PreviewContainer>
+            <ImagePreview
+              styleImage={item.roundCorners}
+              src={imageFile.url}
+              alt={imageFile.title}
+              width={imageFile.details.image.width}
+              height={imageFile.details.image.height}
+              loading="eager"
+            />
+          </PreviewContainer>
           {documentToReactComponents(item.summary)}
         </div>
       </Fade>
@@ -177,13 +179,16 @@ function ShowcaseDesktopItem({
         duration={800}
         when={infoRevealed}
       >
-        <Preview
-          styleImage={item.roundCorners}
-          src={imageFile.url}
-          alt={imageFile.title}
-          layout="fill"
-          loading="eager"
-        />
+        <PreviewContainer>
+          <ImagePreview
+            styleImage={item.roundCorners}
+            src={imageFile.url}
+            alt={imageFile.title}
+            width={imageFile.details.image.width}
+            height={imageFile.details.image.height}
+            loading="eager"
+          />
+        </PreviewContainer>
       </Fade>
     </ShowcasePreview>,
   ]

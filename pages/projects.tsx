@@ -10,6 +10,7 @@ import {
   Subtitle,
   VerticalAlign,
   ImagePreview,
+  ImagePreviewContainer,
 } from 'components/styled'
 import Page from 'components/shared/Page'
 import Contentful from 'src/Contentful'
@@ -114,12 +115,14 @@ export default function Projects({ projectsData }: ProjectsProps) {
               <VerticalAlign style={{ height: '100%' }}>
                 <Fade delay={baseDelay + 100}>
                   {cover ? (
-                    <Cover
-                      src={cover.file.url}
-                      aria-hidden
-                      width={cover.file.details.image.width}
-                      height={cover.file.details.image.height}
-                    />
+                    <ImagePreviewContainer>
+                      <Cover
+                        src={cover.file.url}
+                        aria-hidden
+                        width={cover.file.details.image.width}
+                        height={cover.file.details.image.height}
+                      />
+                    </ImagePreviewContainer>
                   ) : (
                     !isMobile && <ColorTile slug={slug} />
                   )}
