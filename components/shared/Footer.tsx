@@ -67,6 +67,7 @@ const footerSections: FooterSection[] = [
       ['Home', '/'],
       ['Status', '/status'],
       ['Projects', '/projects'],
+      ['Resume', '/resume'],
     ],
   },
   {
