@@ -12,4 +12,4 @@ export { default as Subtitle } from './Subtitle'
 export { default as Button } from './Button'
 
 // misc
-export { default as ImagePreview } from './ImagePreview'
+export { default as ImagePreview, ImagePreviewContainer } from './ImagePreview'

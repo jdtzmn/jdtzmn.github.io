@@ -2,24 +2,26 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { addHttpsIfNecessary } from 'src/utils'
 
-interface ImagePreviewProps {
+interface StyledNextImageProps {
   styleImage?: boolean
-  layout?: string
 }
 
-const ImagePreview = styled(Image).attrs(({ src }) => ({
+const StyledNextImage = styled(Image).attrs(({ src }) => ({
   src: addHttpsIfNecessary(src), // fix `//domain.com` urls
-}))<ImagePreviewProps>`
-  display: block;
-  width: 100%;
-
+}))<StyledNextImageProps>`
   ${({ styleImage, theme }) =>
     styleImage
       ? `
-    box-shadow: 0 5px 30px ${theme.colors.black};
-    border-radius: 16px;
-  `
+        border-radius: 16px;
+        box-shadow: 0 5px 30px ${theme.colors.black};
+      `
       : ''}
 `
 
-export default ImagePreview
+export const ImagePreviewContainer = styled.div`
+  & > div {
+    overflow: visible !important;
+  }
+`
+
+export default StyledNextImage
