@@ -122,12 +122,12 @@ function ShowcaseTabletItem({ item }: ShowcaseItemProps) {
           <ShowcaseTitle showcaseData={item} />
           <PreviewContainer>
             <ImagePreview
-              styleImage={item.roundCorners}
+              $styleImage={item.roundCorners}
               src={imageFile.url}
               alt={imageFile.title}
               width={imageFile.details.image.width}
               height={imageFile.details.image.height}
-              loading="eager"
+              priority
             />
           </PreviewContainer>
           {documentToReactComponents(item.summary)}
@@ -181,12 +181,12 @@ function ShowcaseDesktopItem({
       >
         <PreviewContainer>
           <ImagePreview
-            styleImage={item.roundCorners}
+            $styleImage={item.roundCorners}
             src={imageFile.url}
             alt={imageFile.title}
             width={imageFile.details.image.width}
             height={imageFile.details.image.height}
-            loading="eager"
+            priority
           />
         </PreviewContainer>
       </Fade>
