@@ -26,7 +26,7 @@ const PageIndicator = styled.p`
 const ProjectName = styled(Heading)`
   font-family: 'Roboto Slab', serif;
   font-weight: 500;
-  margin: 0 48px 0 0;
+  margin: 12px 48px 0 0;
   flex-grow: 1;
 `
 
