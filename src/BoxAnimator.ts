@@ -222,10 +222,7 @@ export default class BoxAnimator {
     this.renderer.length = val
   }
 
-  constructor(
-    private readonly ctx: CanvasRenderingContext2D,
-    public readonly duration: number
-  ) {
+  constructor(ctx: CanvasRenderingContext2D, public readonly duration: number) {
     this.renderer = new BoxRenderer(ctx)
   }
 

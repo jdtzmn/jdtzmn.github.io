@@ -92,7 +92,7 @@ export default function Project({ projectData }: ProjectProps) {
         {cover ? (
           <CoverContainer>
             <Cover
-              styleImage
+              $styleImage
               src={cover.file.url}
               alt={`${cover.title} Cover Image`}
               width={cover.file.details.image.width}
