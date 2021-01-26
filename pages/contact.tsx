@@ -54,11 +54,24 @@ export default function Contact() {
   const { isTablet } = useResponsive()
   const [count, handleChange] = useWordCount()
 
+  // Don't render the HCaptcha field if the site key has not been set (useful for development)
+  const hcaptchaSiteKeySet =
+    typeof process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY === 'string' &&
+    process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY.trim().length > 0
+
   const { register, handleSubmit, setValue, errors } = useForm<FormData>()
   const onSubmit = handleSubmit(async ({ name, email, message, captcha }) => {
     setSubmitting(true)
 
     const { from } = router.query
+
+    if (!hcaptchaSiteKeySet) {
+      setSubmitting(false)
+      setFormError(
+        'The form cannot be submitted because the captcha site key has not been set.'
+      )
+      return
+    }
 
     try {
       await axios.post('/api/contact', {
@@ -85,14 +98,16 @@ export default function Contact() {
   })
 
   // register recaptcha with react-hook-form
-  useEffect(() => {
-    register(
-      { name: 'captcha' },
-      {
-        required: 'Please prove you are a human',
-      }
-    )
-  })
+  if (hcaptchaSiteKeySet) {
+    useEffect(() => {
+      register(
+        { name: 'captcha' },
+        {
+          required: 'Please prove you are a human',
+        }
+      )
+    })
+  }
 
   function handleHCaptchaToken(token: string) {
     setValue('captcha', token)
@@ -185,16 +200,18 @@ export default function Contact() {
             })}
           />
         </Block>
-        <Block error={errors.captcha}>
-          <HCaptchaWithNoSSR
-            sitekey={guardEnv(
-              'NEXT_PUBLIC_HCAPTCHA_SITE_KEY',
-              process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY
-            )}
-            theme={theme.light ? 'light' : 'dark'}
-            onVerify={handleHCaptchaToken}
-          />
-        </Block>
+        {hcaptchaSiteKeySet && (
+          <Block error={errors.captcha}>
+            <HCaptchaWithNoSSR
+              sitekey={guardEnv(
+                'NEXT_PUBLIC_HCAPTCHA_SITE_KEY',
+                process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY
+              )}
+              theme={theme.light ? 'light' : 'dark'}
+              onVerify={handleHCaptchaToken}
+            />
+          </Block>
+        )}
         <Block error={formError}>
           <Button type="submit" disabled={submitting}>
             Send Message
