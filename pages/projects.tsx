@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -49,7 +50,7 @@ const ImageContainer = styled.div`
   }
 `
 
-const Details = styled(VerticalAlign)`
+const Details = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.mobile}px) {
     padding-left: 64px;
   }
@@ -80,8 +81,8 @@ const ColorTile = styled.div<ColorTileProps>`
 `
 
 const Name = styled(Subtitle)`
-  font-family: 'Roboto Slab', serif;
-  font-weight: 500;
+  font-size: 1.3em;
+  font-weight: 400;
   text-decoration: none;
   margin: 0.2em 0;
   margin-top: 1em;
@@ -91,7 +92,13 @@ const Name = styled(Subtitle)`
   }
 `
 
+const Description = styled.p`
+  font-size: 1.2em;
+  margin: 0.2em 0;
+`
+
 const projectFadeInDelay = 150 // delay in ms between revealing each project
+const fadeInDuration = 500 // time after which fade-ins should not be delayed
 
 interface ProjectsProps {
   projectsData: ProjectData[]
@@ -100,10 +107,17 @@ interface ProjectsProps {
 export default function Projects({ projectsData }: ProjectsProps) {
   const { isMobile } = useResponsive()
 
+  // Don't delay the fade-in animation if it has been `fadeInDuration` after page load
+  const [shouldDelay, setShouldDelay] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setShouldDelay(false), fadeInDuration)
+  }, [])
+
   const projects = projectsData.map((projectData, index) => {
     const { slug, name, description } = projectData
 
-    const baseDelay = index * projectFadeInDelay
+    const baseDelay = shouldDelay ? index * projectFadeInDelay : 0
 
     const cover = projectData.cover?.fields
 
@@ -135,7 +149,7 @@ export default function Projects({ projectsData }: ProjectsProps) {
               </Fade>
               {description && (
                 <Fade delay={baseDelay + 50}>
-                  <p>{description}</p>
+                  <Description>{description}</Description>
                 </Fade>
               )}
             </Details>
@@ -149,7 +163,9 @@ export default function Projects({ projectsData }: ProjectsProps) {
   return (
     <Page name="Projects" header="Projects">
       {projects.length > 0 ? (
-        <ProjectsContainer>{projects}</ProjectsContainer>
+        <Fade cascade>
+          <ProjectsContainer>{projects}</ProjectsContainer>
+        </Fade>
       ) : (
         <p style={{ textAlign: 'center' }}>
           No projects here yet! <br /> Come back later once I've written some.
