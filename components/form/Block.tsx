@@ -8,6 +8,7 @@ import {
   SyntheticEvent,
   MutableRefObject,
   Ref,
+  useCallback,
 } from 'react'
 import styled from 'styled-components'
 import { invert } from 'polished'
@@ -132,10 +133,10 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
   const isNextShortcut = props.nextShortcut || enterWithoutShiftShortcut
 
   // event handlers
-  function handleBlockClick() {
+  const handleBlockClick = useCallback(() => {
     if (props.blockContext?.selectBlock && !props.blockContext?.selected)
       props.blockContext?.selectBlock()
-  }
+  }, [props.blockContext])
 
   function handleFocus() {
     if (props.blockContext?.selectBlock && !props.blockContext?.selected)
@@ -158,15 +159,15 @@ export default function Block(props: PropsWithChildren<BlockProps>) {
     }
   }
 
-  function handleBackClick() {
+  const handleBackClick = useCallback(() => {
     if (props.blockContext?.selectBlock && !props.blockContext?.isFirst)
       props.blockContext?.selectBlock(-1)
-  }
+  }, [props.blockContext])
 
-  function handleNextClick() {
+  const handleNextClick = useCallback(() => {
     if (props.blockContext?.selectBlock && !props.blockContext?.isLast)
       props.blockContext?.selectBlock(1)
-  }
+  }, [props.blockContext])
 
   // focus and scroll into view on select
   useEffect(() => {

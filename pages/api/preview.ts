@@ -33,10 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // determine redirect URL
-  const redirectURL = determineRedirectURL(
-    contentType as string,
-    slug as string
-  )
+  const redirectURL = determineRedirectURL(contentType, slug)
 
   // guard invalid redirect
   if (!redirectURL) {

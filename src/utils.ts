@@ -1,4 +1,4 @@
-import { Ref, MutableRefObject, RefObject } from 'react'
+import { Ref, MutableRefObject } from 'react'
 
 // ensure that an environment variable is set
 export function guardEnv(name: string, value?: string) {

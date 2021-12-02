@@ -49,7 +49,7 @@ interface StatusProps {
 export default function Status({ statusData, updatedAt }: StatusProps) {
   const { isCustom } = useResponsive(1160)
 
-  const dateLocaleOptions = {
+  const dateLocaleOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

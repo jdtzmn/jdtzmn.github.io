@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { lighten, darken } from 'polished'
@@ -151,9 +151,9 @@ function ShowcaseDesktopItem({
   const hasNotScrolled = typeof window !== 'undefined' && window.scrollY === 0
   const fadeDelay = isFirstRow && hasNotScrolled ? animationDelay : 0
 
-  function onInfoRevealed() {
+  const onInfoRevealed = useCallback(() => {
     setInfoRevealed(true)
-  }
+  }, [setInfoRevealed])
 
   const showcaseContent = [
     <ShowcaseInfo key={item.name + '-info'}>

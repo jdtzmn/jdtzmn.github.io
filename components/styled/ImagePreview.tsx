@@ -1,12 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
 // eslint-disable-next-line import/no-named-default
-import { default as NextImage, ImageLoaderProps, ImageProps } from 'next/image'
-import { useIntersection } from 'next/dist/client/use-intersection'
+import { default as NextImage, ImageLoaderProps } from 'next/image'
 import styled from 'styled-components'
-import { addHttpsIfNecessary, mergeRefs } from 'src/utils'
+import { addHttpsIfNecessary } from 'src/utils'
 
 const defaultImageQuality = 75
-const lowQualityImageQuery = 'w=11&h=8'
+const lowQualityImage = { width: 11, height: 8 }
 
 function contentfulLoader({ src, width, quality }: ImageLoaderProps) {
   // Guard against gif, since resizing a gif takes more time than it saves
@@ -35,11 +33,30 @@ interface StyledNextImageProps {
   $styleImage?: boolean
 }
 
-export const StyledNextImage = styled(NextImage).attrs(({ src }) => ({
-  loader: contentfulLoader,
-  layout: 'responsive',
-  src: addHttpsIfNecessary(src), // fix `//domain.com` urls, where `https` is missing
-}))<StyledNextImageProps>`
+export const StyledNextImage = styled(NextImage).attrs(({ src }) => {
+  const srcIsString = typeof src === 'string'
+  let srcUrl: string | undefined
+  let blurDataURL: string | undefined
+
+  // If the src is a url, then ensure it has https and define a blur data url
+  if (srcIsString) {
+    srcUrl = addHttpsIfNecessary(src)
+
+    const urlObj = new URL(srcUrl)
+    urlObj.searchParams.set('w', lowQualityImage.width.toString())
+    urlObj.searchParams.set('h', lowQualityImage.height.toString())
+
+    blurDataURL = urlObj.toString()
+  }
+
+  return {
+    loader: contentfulLoader,
+    layout: 'responsive',
+    src: srcIsString ? srcUrl : src,
+    placeholder: 'blur',
+    blurDataURL,
+  }
+})<StyledNextImageProps>`
   ${({ $styleImage, theme }) =>
     $styleImage
       ? `
@@ -49,95 +66,7 @@ export const StyledNextImage = styled(NextImage).attrs(({ src }) => ({
       : ''}
 `
 
-interface LoadingContainerProps {
-  loaded: boolean
-}
-
-const LoadingContainer = styled.div<LoadingContainerProps>`
-  position: relative;
-  transition: filter 0.3s;
-  ${({ loaded }) => !loaded && 'filter: blur(10px);'}
-`
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-`
-
-type LoadingImageProps = Omit<ImageProps & StyledNextImageProps, 'layout'>
-
-export function LoadingImage(props: LoadingImageProps) {
-  const imgParentRef = useRef<HTMLDivElement>()
-
-  const [loaded, setLoaded] = useState(false)
-
-  // Use the intersection hook that next.js uses for image detection
-  const [setRef, isIntersected] = useIntersection<HTMLDivElement>({
-    rootMargin: '200px',
-    disabled: props.priority,
-  })
-
-  function handleImageLoad(img: HTMLImageElement) {
-    // Mark the image as loaded
-    setLoaded(true)
-
-    // Delete the image element
-    img.remove()
-  }
-
-  useEffect(() => {
-    // Only load images once intersected
-    if (isIntersected || props.priority) {
-      // Get the image src of the image element that is being loaded
-      const imgParentEl = imgParentRef.current
-
-      // Short circuit if the parent element is undefined
-      if (typeof imgParentEl === 'undefined') return
-      const imgEl = imgParentEl.querySelector('img')
-
-      // Create an image element to track the loading
-      const img = new Image()
-      img.addEventListener('load', () => handleImageLoad(img), false)
-      img.src = imgEl.src
-    }
-  }, [isIntersected])
-
-  const lowQualityImage = `${props.src}?${lowQualityImageQuery}`
-
-  return (
-    <LoadingContainer loaded={loaded} ref={mergeRefs(setRef, imgParentRef)}>
-      <StyledNextImage {...props} />
-      {!loaded && (
-        <Overlay>
-          <StyledNextImage {...props} priority src={lowQualityImage} />
-        </Overlay>
-      )}
-    </LoadingContainer>
-  )
-}
-
-interface ImagePreviewProps {
-  loadIn?: boolean
-}
-
-export default function ImagePreview(
-  props: LoadingImageProps & ImagePreviewProps
-) {
-  // By default, load in if `priority` prop is not set
-  const loadInSet = typeof props.loadIn === 'boolean'
-  const shouldLoadIn = !loadInSet || props.loadIn
-
-  // Load in the image
-  if (shouldLoadIn) {
-    return <LoadingImage {...props} />
-    // Or don't if `loadIn` is false
-  } else {
-    return <StyledNextImage {...props} />
-  }
-}
+export default StyledNextImage
 
 export const ImagePreviewContainer = styled.div`
   & > div {

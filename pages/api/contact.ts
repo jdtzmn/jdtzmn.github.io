@@ -1,8 +1,8 @@
-import qs from 'querystring'
 import { NextApiRequest, NextApiResponse } from 'next'
 import sgMail from '@sendgrid/mail'
-import stripHtml from 'string-strip-html'
+import { stripHtml } from 'string-strip-html'
 import axios from 'axios'
+import { withSentry } from '@sentry/nextjs'
 import { guardEnv } from 'src/utils'
 
 sgMail.setApiKey(guardEnv('SENDGRID_API_KEY'))
@@ -54,7 +54,7 @@ function constructEmail(
   return msg
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') return res.status(404).end()
   const { name, email, message, captcha, from } = req.body
 
@@ -71,40 +71,31 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // verify captcha
   const verifyUrl = 'https://hcaptcha.com/siteverify'
-  try {
-    const requestBody = {
-      secret: guardEnv('HCAPTCHA_SECRET_KEY'),
-      response: captcha,
-    }
+  const requestBody = {
+    secret: guardEnv('HCAPTCHA_SECRET_KEY'),
+    response: captcha,
+  }
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  }
 
-    const response = await axios.post(
-      verifyUrl,
-      qs.stringify(requestBody),
-      config
-    )
-    if (!response.data.success) {
-      console.error(response.data)
-      return res.status(400).end()
-    }
-  } catch (err) {
-    console.error(err)
-
-    return res.status(500).end()
+  const response = await axios.post(
+    verifyUrl,
+    new URLSearchParams(requestBody).toString(),
+    config
+  )
+  if (!response.data.success) {
+    console.error(response.data)
+    return res.status(400).end()
   }
 
   // send email
-  try {
-    const msg = constructEmail(name, email, message, from)
-    await sgMail.send(msg)
-    res.end()
-  } catch (err) {
-    console.error(err)
-    res.status(500).end()
-  }
+  const msg = constructEmail(name, email, message, from)
+  await sgMail.send(msg)
+  res.end()
 }
+
+export default withSentry(handler)
