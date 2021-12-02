@@ -138,7 +138,7 @@ export default function Navbar({
 
   const toggleCollapse = useCallback(() => {
     setOpen(!open)
-  }, [setOpen])
+  }, [setOpen, open])
 
   const handleCollapseUpdate = useCallback(
     ({ isFullyClosed, contentHeight }) => {
