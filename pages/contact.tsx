@@ -59,7 +59,12 @@ export default function Contact() {
     typeof process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY === 'string' &&
     process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY.trim().length > 0
 
-  const { register, handleSubmit, setValue, errors } = useForm<FormData>()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>()
   const onSubmit = handleSubmit(async ({ name, email, message, captcha }) => {
     setSubmitting(true)
 
@@ -100,12 +105,9 @@ export default function Contact() {
   // register recaptcha with react-hook-form
   if (hcaptchaSiteKeySet) {
     useEffect(() => {
-      register(
-        { name: 'captcha' },
-        {
-          required: 'Please prove you are a human',
-        }
-      )
+      register('captcha', {
+        required: 'Please prove you are a human',
+      })
     })
   }
 
@@ -149,7 +151,7 @@ export default function Contact() {
           <ShortAnswer
             name="name"
             placeholder="Type your answer here..."
-            ref={register({
+            {...register('name', {
               required: 'Name is required',
             })}
           />
@@ -164,7 +166,7 @@ export default function Contact() {
             name="email"
             type="email"
             placeholder="Type your answer here..."
-            ref={register({
+            {...register('email', {
               required: 'Email is required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -189,14 +191,14 @@ export default function Contact() {
           <LongAnswer
             name="message"
             placeholder="Type your message here..."
-            onChange={handleChange}
-            ref={register({
+            {...register('message', {
               required: 'Message is required',
               validate: {
                 wordCount: (value) =>
                   calculateWordCount(value) < MAX_WORD_COUNT ||
                   'Word count exceeded',
               },
+              onChange: handleChange,
             })}
           />
         </Block>
