@@ -105,7 +105,10 @@ export function LoadingImage(props: LoadingImageProps) {
     }
   }, [isIntersected])
 
-  const lowQualityImage = `${props.src}?${lowQualityImageQuery}`
+  const lowQualityImage =
+    typeof props.src === 'string'
+      ? `${props.src}?${lowQualityImageQuery}`
+      : props.src
 
   return (
     <LoadingContainer loaded={loaded} ref={mergeRefs(setRef, imgParentRef)}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import styled from 'styled-components'
@@ -111,9 +111,12 @@ export default function Contact() {
     })
   }
 
-  function handleHCaptchaToken(token: string) {
-    setValue('captcha', token)
-  }
+  const handleHCaptchaToken = useCallback(
+    (token: string) => {
+      setValue('captcha', token)
+    },
+    [setValue]
+  )
 
   const successMessage = (
     <Fade>

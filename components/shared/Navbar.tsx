@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { lighten, transparentize } from 'polished'
 import Link from 'next/link'
@@ -136,14 +136,17 @@ export default function Navbar({
   const [visible, setVisible] = useState(false)
   const { isMobile } = useResponsive()
 
-  function toggleCollapse() {
+  const toggleCollapse = useCallback(() => {
     setOpen(!open)
-  }
+  }, [setOpen])
 
-  function handleCollapseUpdate({ isFullyClosed, contentHeight }) {
-    setVisible(contentHeight > 0)
-    if (isFullyClosed) setVisible(false)
-  }
+  const handleCollapseUpdate = useCallback(
+    ({ isFullyClosed, contentHeight }) => {
+      setVisible(contentHeight > 0)
+      if (isFullyClosed) setVisible(false)
+    },
+    [setVisible]
+  )
 
   const collapseIcon = open ? <RiCloseFill /> : <RiMenu3Line />
 

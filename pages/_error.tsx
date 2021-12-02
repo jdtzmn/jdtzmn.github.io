@@ -40,10 +40,16 @@ const SentryError = ({ statusCode, hasGetInitialPropsRun, err }) => {
 }
 
 SentryError.getInitialProps = async ({ res, err, asPath }) => {
-  const errorInitialProps = await NextErrorComponent.getInitialProps({
+  const pageContext: NextPageContext = {
     res,
     err,
-  } as NextPageContext)
+    pathname: undefined,
+    query: undefined,
+    AppTree: undefined,
+  }
+  const errorInitialProps = await NextErrorComponent.getInitialProps(
+    pageContext
+  )
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
@@ -79,7 +85,9 @@ SentryError.getInitialProps = async ({ res, err, asPath }) => {
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
   Sentry.captureException(
-    new Error(`_error.tsx getInitialProps missing data at path: ${asPath}`)
+    new Error(
+      `_error.tsx getInitialProps missing data at path: ${asPath as string}`
+    )
   )
   await Sentry.flush(2000)
 
