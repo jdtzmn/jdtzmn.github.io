@@ -14,8 +14,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { url } = asset.fields.file
   const fileURL = url.includes('http') ? url : 'https:' + url
   const response = await axios.get(fileURL, { responseType: 'stream' })
-
   response.data.pipe(res)
+
+  await new Promise((resolve, reject) => {
+    response.data.on('end', resolve)
+    response.data.on('error', reject)
+  })
 }
 
 export default withSentry(handler)

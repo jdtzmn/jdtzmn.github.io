@@ -13,6 +13,8 @@ const moduleExports = {
       },
     ]
   },
+  // Fix for Sentry not working with Next.js
+  outputFileTracing: false,
 }
 
 module.exports = withSentryConfig(moduleExports)
