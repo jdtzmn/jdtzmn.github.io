@@ -187,3 +187,7 @@ $RECYCLE.BIN/
 # Custom
 
 build
+
+# Sentry
+.sentryclirc
+sentry.properties

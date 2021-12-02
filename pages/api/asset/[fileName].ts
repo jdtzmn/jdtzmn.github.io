@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Contentful from 'src/Contentful'
 import axios from 'axios'
+import { withSentry } from '@sentry/nextjs'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { fileName } = req.query
   if (Array.isArray(fileName)) return res.status(400).end()
   const asset = await Contentful.getAssetByFileName(fileName)
@@ -16,3 +17,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   response.data.pipe(res)
 }
+
+export default withSentry(handler)

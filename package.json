@@ -14,6 +14,7 @@
     "@contentful/rich-text-react-renderer": "^15.6.2",
     "@hcaptcha/react-hcaptcha": "^0.3.9",
     "@sendgrid/mail": "^7.6.0",
+    "@sentry/nextjs": "^6.15.0",
     "axios": "^0.24.0",
     "contentful": "^9.1.5",
     "debounce": "^1.2.1",

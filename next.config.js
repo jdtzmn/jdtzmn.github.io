@@ -1,4 +1,6 @@
-module.exports = {
+const { withSentryConfig } = require('@sentry/nextjs')
+
+const moduleExports = {
   images: {
     domains: ['images.ctfassets.net'],
   },
@@ -12,3 +14,5 @@ module.exports = {
     ]
   },
 }
+
+module.exports = withSentryConfig(moduleExports)
