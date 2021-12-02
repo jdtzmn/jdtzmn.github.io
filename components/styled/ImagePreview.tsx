@@ -38,7 +38,7 @@ interface StyledNextImageProps {
 export const StyledNextImage = styled(NextImage).attrs(({ src }) => ({
   loader: contentfulLoader,
   layout: 'responsive',
-  src: addHttpsIfNecessary(src), // fix `//domain.com` urls, where `https` is missing
+  src: typeof src === 'string' ? addHttpsIfNecessary(src) : src, // fix `//domain.com` urls, where `https` is missing
 }))<StyledNextImageProps>`
   ${({ $styleImage, theme }) =>
     $styleImage
