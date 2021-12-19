@@ -734,7 +734,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
     flex: 1 1 50%;
     display: flex;
     flex-direction: column;
-    margin: 0 0 0 8px;
+    margin: 0;
     color: color-mod(var(--color-midgrey) l(+10%));
     font-size: 1.4rem;
     line-height: 1.2em;
@@ -751,6 +751,7 @@ body:not(.gh-head-open) .gh-burger:hover .gh-burger-inner::after {
 }
 
 .post-card-byline-date {
+    color: color-mod(var(--color-midgrey) l(+15%));
     font-size: 1.3rem;
     line-height: 1.5em;
 }
