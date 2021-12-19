@@ -15,6 +15,7 @@
             --button-bg-color: {{@custom.header_button_background}};
             {{/if}}
             --button-text-color: {{#match @custom.header_button_text_color "Light"}}#fff{{else}}var(--color-darkgrey){{/match}};
+            --color-background: {{@custom.background_color}};
         }
     </style>
 
@@ -24,11 +25,15 @@
 
     {{!-- Theme fonts --}}
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
         rel="stylesheet"
     />
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap"
         rel="stylesheet"
     />
 
@@ -37,7 +42,7 @@
     {{ghost_head}}
 
 </head>
-<body class="{{body_class}}{{#match @custom.title_font "=" "Playfair Display"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Inter"}} has-sans-body{{/match}}">
+<body class="{{body_class}}{{#match @custom.title_font "=" "Lora"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Inter"}} has-sans-body{{/match}}">
 <div class="viewport">
 
     <header id="gh-head" class="gh-head{{#match @custom.publication_cover_style "!=" "None"}} has-cover{{/match}}">

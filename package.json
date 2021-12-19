@@ -82,11 +82,15 @@
         },
         "card_assets": true,
         "custom": {
+            "background_color": {
+                "type": "color",
+                "default": "#060f2d"
+            },
             "title_font": {
                 "type": "select",
                 "options": [
                     "Inter",
-                    "Playfair Display"
+                    "Lora"
                 ],
                 "default": "Inter"
             },
@@ -94,9 +98,9 @@
                 "type": "select",
                 "options": [
                     "Inter",
-                    "Playfair Display"
+                    "Lora"
                 ],
-                "default": "Playfair Display"
+                "default": "Lora"
             },
             "publication_cover_style": {
                 "type": "select",
@@ -125,7 +129,7 @@
                     "Dark",
                     "Auto"
                 ],
-                "default": "Light"
+                "default": "Dark"
             },
             "header_button_background": {
                 "type": "color",
