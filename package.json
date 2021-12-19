@@ -102,6 +102,10 @@
                 ],
                 "default": "Lora"
             },
+            "blog_author_name": {
+                "type": "text",
+                "default": "John Smith"
+            },
             "publication_cover_style": {
                 "type": "select",
                 "options": [

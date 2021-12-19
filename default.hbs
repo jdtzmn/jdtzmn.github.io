@@ -90,7 +90,14 @@
     {{!-- The global footer at the very bottom of the screen --}}
     <footer class="site-footer outer">
         <div class="inner">
-            <section class="copyright"><a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}</section>
+            <section class="copyright">
+                <a href="{{@site.url}}">
+                    {{#if @custom.blog_author_name}}
+                        {{@custom.blog_author_name}}
+                    {{else}}
+                        {{@site.title}}
+                    {{/if}}
+                </a> &copy; {{date format="YYYY"}}</section>
             <nav class="site-footer-nav">
                 {{navigation type="secondary"}}
             </nav>
