@@ -1444,7 +1444,7 @@ iframe.instagram-media + script + :not([id]) {
     padding: 9vmin 4vmin 10vmin;
     color: #fff;
     text-align: center;
-    background: var(--color-darkgrey);
+    background: var(--color-dark-background);
 }
 
 .footer-cta.cta-alt {
@@ -1504,7 +1504,7 @@ iframe.instagram-media + script + :not([id]) {
     padding: 4vmin;
     margin: 40px auto -40px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: color-mod(var(--color-darkgrey) l(-5%));
+    background: color-mod(var(--color-darkmode) l(-5%));
 }
 
 .read-more {
