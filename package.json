@@ -106,14 +106,9 @@
                 "type": "text",
                 "default": "John Smith"
             },
-            "publication_cover_style": {
-                "type": "select",
-                "options": [
-                    "None",
-                    "Medium",
-                    "Large"
-                ],
-                "default": "Medium",
+            "welcome_message": {
+                "type": "text",
+                "default": "Welcome to my blog!",
                 "group": "homepage"
             },
             "feed_layout": {
