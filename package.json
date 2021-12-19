@@ -1,17 +1,12 @@
 {
-    "name": "casper",
-    "description": "A clean, minimal default theme for the Ghost publishing platform",
-    "demo": "https://demo.ghost.io",
+    "name": "midnight",
+    "description": "A fork of casper for my own use",
     "version": "4.7.2",
     "engines": {
         "ghost": ">=4.0.0",
         "ghost-api": "v4"
     },
     "license": "MIT",
-    "screenshots": {
-        "desktop": "assets/screenshot-desktop.jpg",
-        "mobile": "assets/screenshot-mobile.jpg"
-    },
     "scripts": {
         "dev": "gulp",
         "zip": "gulp zip",
@@ -23,9 +18,8 @@
         "postship": "git fetch && gulp release"
     },
     "author": {
-        "name": "Ghost Foundation",
-        "email": "hello@ghost.org",
-        "url": "https://ghost.org/"
+        "name": "Jacob Daitzman",
+        "email": "jdtzmn@gmail.com"
     },
     "gpm": {
         "type": "theme",
@@ -41,10 +35,8 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/TryGhost/Casper.git"
+        "url": "https://github.com/jdtzmn/jdtzmn.github.io/tree/blog-theme.git"
     },
-    "bugs": "https://github.com/TryGhost/Casper/issues",
-    "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
     "devDependencies": {
         "@tryghost/release-utils": "0.6.12",
         "autoprefixer": "10.2.5",
@@ -93,18 +85,18 @@
             "title_font": {
                 "type": "select",
                 "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
+                    "Inter",
+                    "Playfair Display"
                 ],
-                "default": "Modern sans-serif"
+                "default": "Inter"
             },
             "body_font": {
                 "type": "select",
                 "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
+                    "Inter",
+                    "Playfair Display"
                 ],
-                "default": "Elegant serif"
+                "default": "Playfair Display"
             },
             "publication_cover_style": {
                 "type": "select",

@@ -22,12 +22,22 @@
     this will take care of caching and cache-busting automatically --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
 
+    {{!-- Theme fonts --}}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
+        rel="stylesheet"
+    />
+
     {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
     it should always be the last tag before the closing head tag --}}
     {{ghost_head}}
 
 </head>
-<body class="{{body_class}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Modern sans-serif"}} has-sans-body{{/match}}">
+<body class="{{body_class}}{{#match @custom.title_font "=" "Playfair Display"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Inter"}} has-sans-body{{/match}}">
 <div class="viewport">
 
     <header id="gh-head" class="gh-head{{#match @custom.publication_cover_style "!=" "None"}} has-cover{{/match}}">
@@ -37,8 +47,6 @@
                 <a class="gh-head-logo" href="{{@site.url}}">
                     {{#if @site.logo}}
                         <img src="{{@site.logo}}" alt="{{@site.title}}" />
-                    {{else}}
-                        {{@site.title}}
                     {{/if}}
                 </a>
                 <a class="gh-burger" role="button">
@@ -81,7 +89,6 @@
             <nav class="site-footer-nav">
                 {{navigation type="secondary"}}
             </nav>
-            <div><a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a></div>
         </div>
     </footer>
 
