@@ -95,7 +95,7 @@
     <footer class="site-footer outer">
         <div class="inner">
             <section class="copyright">
-                <a href="{{@site.url}}">
+                <a href="{{#if @custom.blog_author_name}}{{@custom.blog_author_site}}{{else}}{{@site.url}}{{/if}}">
                     {{#if @custom.blog_author_name}}
                         {{@custom.blog_author_name}}
                     {{else}}

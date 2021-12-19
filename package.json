@@ -106,6 +106,10 @@
                 "type": "text",
                 "default": "John Smith"
             },
+            "blog_author_site": {
+                "type": "text",
+                "default": "https://ghost.org"
+            },
             "welcome_message": {
                 "type": "text",
                 "default": "Welcome to my blog!",
