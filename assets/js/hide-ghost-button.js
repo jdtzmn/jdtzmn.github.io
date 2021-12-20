@@ -18,7 +18,7 @@ $(document).ready(function() {
                         // Wait a bit for the elements to be populated
                         setTimeout(function() {
                             // Hide the ghost button
-                            iframe.contents().find('body').find('.gh-portal-powered.outside.signup').hide()
+                            iframe.contents().find('body').find('.gh-portal-powered').hide()
                         }, 10);
                     });
                 }
