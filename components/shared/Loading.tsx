@@ -3,17 +3,37 @@ import styled from 'styled-components'
 import debounce from 'debounce'
 import BoxAnimator from 'src/BoxAnimator'
 
+const ANIMATION_PERIOD = 1400
+
 const Canvas = styled.canvas`
   display: block;
   margin: 0 auto;
 `
 
-export default function Loading() {
+interface LoadingProps {
+  width?: number
+  height?: number
+}
+
+// Default canvas size
+const defaultSize: Required<LoadingProps> = {
+  width: 264,
+  height: 400,
+}
+
+export default function Loading(props: LoadingProps) {
   const canvasElement = useRef<HTMLCanvasElement>(null)
 
-  const [width, setWidth] = useState(264)
-  const [height, setHeight] = useState(400)
+  const [width, setWidth] = useState(props.width || defaultSize.width)
+  const [height, setHeight] = useState(props.height || defaultSize.height)
 
+  // subscribe to props updates
+  useEffect(() => {
+    setWidth(props.width)
+    setHeight(props.height)
+  }, [props.width, props.height])
+
+  // start the animation when mounted
   useEffect(() => {
     const context = canvasElement.current.getContext('2d')
 
@@ -22,7 +42,7 @@ export default function Loading() {
     }
 
     // start the animation
-    const animator = new BoxAnimator(context, 1000)
+    const animator = new BoxAnimator(context, ANIMATION_PERIOD)
     setupAnimations(animator)
     animator.start()
 
@@ -95,11 +115,11 @@ export default function Loading() {
 function setupAnimations(animator: BoxAnimator) {
   // prettier-ignore
   animator.addBoxAt(1, 0.5, 0)
-    .animateTo(0, 0.5, 0).at(500)
-    .animateTo(0, 0.5, 1).at(1000);
+    .animateTo(0, 0.5, 0).at(ANIMATION_PERIOD / 2)
+    .animateTo(0, 0.5, 1).at(ANIMATION_PERIOD);
 
   // prettier-ignore
   animator.addBoxAt(0, 0.5, 1)
-    .animateTo(1, 0.5, 1).at(500)
-    .animateTo(1, 0.5, 0).at(1000);
+    .animateTo(1, 0.5, 1).at(ANIMATION_PERIOD / 2)
+    .animateTo(1, 0.5, 0).at(ANIMATION_PERIOD);
 }
