@@ -4,7 +4,9 @@ import { theme } from 'pages/_app'
 
 const { mobile: mobileBreakpoint, tablet: tabletBreakpoint } = theme.breakpoints
 
-function useResponsive(customBreakpoint: number = mobileBreakpoint) {
+export default function useResponsive(
+  customBreakpoint: number = mobileBreakpoint
+) {
   const [isClient, setIsClient] = useState(false)
 
   const isMobile = useMediaQuery({
@@ -34,5 +36,3 @@ function useResponsive(customBreakpoint: number = mobileBreakpoint) {
     isCustom: isClient && customBreakpoint && isCustom,
   }
 }
-
-export default useResponsive
