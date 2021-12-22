@@ -5,11 +5,14 @@ import PreviewBanner from 'components/shared/PreviewBanner'
 import { defaultTheme } from 'styles/themes'
 import GlobalStyles from 'styles/global'
 import { guardEnv } from 'src/utils'
+import useReady from 'src/hooks/useReady'
+import LoadingScreen from 'components/shared/LoadingScreen'
 
 export const theme = defaultTheme
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
+  const ready = useReady()
 
   const siteURL = guardEnv(
     'NEXT_PUBLIC_SITE_URL or VERCEL_URL',
@@ -42,6 +45,13 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <PreviewBanner isPreview={pageProps.preview} />
         <Component {...pageProps} />
+
+        {/*
+          Show a blank cover if homepage is not ready 
+          so that there isn't a flashing effect but
+          text is still accessible to screen readers
+        */}
+        {!ready && router.pathname === '/' && <LoadingScreen />}
         <GlobalStyles />
       </ThemeProvider>
     </>
