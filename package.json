@@ -8,7 +8,8 @@
     "start": "next",
     "dev": "next dev",
     "build": "next build",
-    "export": "next expoort -o build"
+    "export": "next expoort -o build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.6.2",
@@ -93,11 +94,6 @@
   },
   "jest": {
     "preset": "ts-jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
