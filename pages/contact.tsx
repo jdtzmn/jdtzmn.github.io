@@ -70,14 +70,6 @@ export default function Contact() {
 
     const { from } = router.query
 
-    if (!hcaptchaSiteKeySet) {
-      setSubmitting(false)
-      setFormError(
-        'The form cannot be submitted because the captcha site key has not been set.'
-      )
-      return
-    }
-
     try {
       await axios.post('/api/contact', {
         name,
