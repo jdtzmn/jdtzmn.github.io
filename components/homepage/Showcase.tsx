@@ -163,6 +163,7 @@ function ShowcaseDesktopItem({
         distance="50%"
         wait={fadeDelay}
         onReveal={onInfoRevealed}
+        when={isFirstRow ? true : undefined}
       >
         <div>
           <ShowcaseTitle showcaseData={item} />
